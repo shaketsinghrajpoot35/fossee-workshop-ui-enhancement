@@ -1,0 +1,145 @@
+/**
+ * FOSSEE Workshop Booking - Modern Design System
+ * Focus: High Contrast, Indigo Palette, Mobile-First spacing
+ */
+
+:root {
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --slate-50: #f8fafc;
+    --slate-100: #f1f5f9;
+    --slate-200: #e2e8f0;
+    --slate-700: #334155;
+    --slate-800: #1e293b;
+    --emerald-500: #10b981;
+    --amber-500: #f59e0b;
+    --radius: 8px;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--slate-50);
+    color: var(--slate-800);
+    line-height: 1.6;
+}
+
+/* Navbar Modernization */
+.navbar {
+    background-color: var(--slate-800) !important;
+    padding: 0.8rem 1rem;
+    box-shadow: var(--shadow);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    font-size: 1.25rem;
+}
+
+.nav-link {
+    font-weight: 500;
+    margin: 0 0.5rem;
+    transition: opacity 0.2s;
+}
+
+.nav-link:hover {
+    opacity: 0.8;
+}
+
+/* Global Content Container */
+.base-content {
+    padding-top: 6rem;
+    padding-bottom: 4rem;
+    min-height: calc(100vh - 120px);
+}
+
+/* Buttons */
+.btn {
+    border-radius: var(--radius);
+    padding: 0.5rem 1.25rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.btn-success {
+    background-color: var(--emerald-500) !important;
+    border-color: var(--emerald-500) !important;
+}
+
+/* Cards & Containers */
+.card {
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    background: white;
+}
+
+.card-header {
+    background-color: white;
+    border-bottom: 1px solid var(--slate-100);
+    padding: 1.25rem;
+}
+
+/* Tables -> Respecting scans but adding spacing */
+.table {
+    background: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.table th {
+    background-color: var(--slate-50);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: var(--slate-700);
+    border-top: none !important;
+}
+
+/* Badges */
+.badge {
+    padding: 0.5em 0.8em;
+    font-weight: 600;
+    border-radius: 9999px;
+}
+
+.badge-success {
+    background-color: #dcfce7 !important;
+    color: #166534 !important;
+}
+
+.badge-warning {
+    background-color: #fef3c7 !important;
+    color: #92400e !important;
+}
+
+/* Footer Refresh */
+.footer {
+    background-color: var(--slate-800) !important;
+    padding: 1.5rem 0;
+    color: var(--slate-200);
+    font-size: 0.875rem;
+    margin-top: 2rem;
+}
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+    .navbar-nav {
+        margin-top: 1rem;
+    }
+    .base-content {
+        padding-top: 5rem;
+    }
+}

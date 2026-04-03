@@ -1,84 +1,158 @@
 {% extends 'workshop_app/base.html' %}
 
-{% block title %}
-    View Workshop details
-{% endblock %}
+{% block title %} Workshop Details | FOSSEE {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <table class="table table-bordered">
-            <tr>
-                <th><label for="id_first_name">Workshop Type :</label></th>
-                <td><label for="id_first_name"><a
-                        href="{% url 'workshop_app:workshop_type_details' workshop.workshop_type_id %}">{{ workshop.workshop_type }}</a></label>
-                </td>
-            </tr>
-            <tr>
-                <th><label for="id_last_name">Date :</label></th>
-                <td><label for="id_last_name">{{ workshop.date }}</label></td>
-            </tr>
-            <tr>
-                <th><label for="id_email">Coordinator :</label></th>
-                <td><label for="id_email">{{ workshop.coordinator.get_full_name|title }}</label>
-                </td>
-            </tr>
-            {% if workshop.status %}
-                <tr>
-                    <th><label for="id_institute">Status :</label></th>
-                    <td><span class="badge badge-success">{{ workshop.get_status }}</span></td>
-                </tr>
-                <tr>
-                    <th><label for="id_phone_number">Instructor :</label></th>
-                    <td><label for="id_email">{{ workshop.instructor.get_full_name|title }}</label>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <th><label for="id_institute">Status :</label></th>
-                    <td><span class="badge badge-warning">{{ workshop.get_status }}</span></td>
-                </tr>
-            {% endif %}
-        </table>
-        <br>
-        <div class="container">
-            <div class="card mt-2 mb-5">
-                <form method="post">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="mx-3 font-weight-bold">Post a comment</div>
-                            {% if request.user.profile.position == 'instructor' %}
-                                <div class="ml-5">{{ form.public }} Public</div>
-                                <div class="ml-1 text-muted">(Non-public comments are visible only to instructors)</div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        {{ form.comment }}
-                    </div>
-                    <button type="submit" class="float-right btn btn-primary btn-md m-2">Post</button>
-                </form>
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <!-- Workshop Header / Stats -->
+        <div class="card border-0 shadow-lg mb-4 overflow-hidden rounded-xl">
+            <div class="card-header bg-white border-0 pt-4 px-4 pb-0">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <span class="badge {% if workshop.status %}badge-success{% else %}badge-warning{% endif %} px-3 py-2">
+                        {{ workshop.get_status }}
+                    </span>
+                    <span class="text-muted small font-weight-bold d-flex align-items-center">
+                        <span class="material-icons mr-1" style="font-size: 1rem">event</span>
+                        {{ workshop.date|date:"F d, Y" }}
+                    </span>
+                </div>
+                <h2 class="font-weight-bold mb-3">{{ workshop.workshop_type }}</h2>
             </div>
-            <br><br>
-            <h2 class="text-center">Comments</h2>
-            <br>
-            {% for comment in workshop_comments %}
-                <div class="card my-2">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="ml-3 font-weight-bold"><a
-                                    href="{% url 'workshop_app:view_profile' comment.author_id %}">{{ comment.author }}</a></div>
-                            {% if not comment.public %}
-                                <div class="ml-1"><span class="badge badge-dark">Hidden</span></div>
-                            {% endif %}
-                            <div class="ml-3 text-muted">{{ comment.created_date }}</div>
-                        </div>
+            <div class="card-body px-4 pb-4">
+                <div class="row">
+                    <div class="col-sm-4 mb-3 mb-sm-0">
+                        <p class="small text-uppercase text-muted font-weight-bold mb-1">Coordinator</p>
+                        <a href="{% url 'workshop_app:view_profile' workshop.coordinator.id %}" class="text-dark font-weight-bold">
+                            {{ workshop.coordinator.get_full_name|title }}
+                        </a>
                     </div>
-                    <div class="card-body">
-                        <p>{{ comment.comment }}</p>
+                    <div class="col-sm-4 mb-3 mb-sm-0">
+                        <p class="small text-uppercase text-muted font-weight-bold mb-1">Institute</p>
+                        <p class="text-dark mb-0 small">{{ workshop.coordinator.profile.institute|title }}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="small text-uppercase text-muted font-weight-bold mb-1">Instructor</p>
+                        {% if workshop.instructor %}
+                            <p class="text-dark font-weight-bold mb-0">{{ workshop.instructor.get_full_name|title }}</p>
+                        {% else %}
+                            <p class="text-muted small italic mb-0">Awaiting Assignment</p>
+                        {% endif %}
                     </div>
                 </div>
+                <hr class="my-4">
+                <div class="d-flex justify-content-center">
+                    <a href="{% url 'workshop_app:workshop_type_details' workshop.workshop_type_id %}" class="btn btn-outline-primary btn-sm px-4">
+                        <span class="material-icons align-middle mr-1" style="font-size: 1rem">menu_book</span> Explore Course Content
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat-Style Comment Section -->
+        <h4 class="font-weight-bold mb-4 d-flex align-items-center">
+            <span class="material-icons mr-2 text-primary">forum</span> 
+            Discussion Feed
+        </h4>
+
+        <div class="comment-feed mb-5">
+            {% for comment in workshop_comments %}
+            <div class="d-flex mb-4 {% if comment.author == request.user %}flex-row-reverse{% endif %}">
+                <!-- Avatar -->
+                <div class="flex-shrink-0 mx-2">
+                    <div class="avatar bg-indigo text-white rounded-circle d-flex align-items-center justify-content-center font-weight-bold" style="width: 40px; height: 40px; font-size: 0.9rem;">
+                        {{ comment.author.first_name|first }}{{ comment.author.last_name|first }}
+                    </div>
+                </div>
+                
+                <!-- Bubble -->
+                <div class="message-container" style="max-width: 75%;">
+                    <div class="d-flex align-items-center mb-1 {% if comment.author == request.user %}justify-content-end{% endif %}">
+                        <span class="small font-weight-bold mr-2">{{ comment.author.get_full_name|title }}</span>
+                        <span class="small text-muted" style="font-size: 0.7rem;">{{ comment.created_date|date:"H:i | M d" }}</span>
+                        {% if not comment.public %}
+                            <span class="badge badge-dark ml-2" style="font-size: 0.6rem;">PRIVATE</span>
+                        {% endif %}
+                    </div>
+                    <div class="message-bubble shadow-sm {% if comment.author == request.user %}bubble-sent bg-primary text-white{% else %}bubble-received bg-white text-dark{% endif %}">
+                        <p class="mb-0 small">{{ comment.comment }}</p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="text-center py-5 bg-white rounded shadow-sm border border-dashed">
+                <span class="material-icons text-muted display-4 mb-2">comments_disabled</span>
+                <p class="text-muted">No comments yet. Start the conversation!</p>
+            </div>
             {% endfor %}
         </div>
-    </div>
 
-{% endblock %}
+        <!-- Post Comment Form -->
+        <div class="card border-0 shadow-lg p-3 rounded-lg sticky-bottom" style="bottom: 20px; z-index: 100;">
+            <form method="post" id="comment-form">
+                {% csrf_token %}
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1 pr-2">
+                        {{ form.comment }}
+                    </div>
+                    <button type="submit" class="btn btn-primary rounded-circle d-flex align-items-center justify-content-center p-0" style="width: 45px; height: 45px; flex-shrink: 0;">
+                        <span class="material-icons text-white">send</span>
+                    </button>
+                </div>
+                {% if request.user.profile.position == 'instructor' %}
+                <div class="mt-2 d-flex align-items-center px-1">
+                    <div class="custom-control custom-switch small">
+                        {{ form.public }}
+                        <label class="custom-control-label text-muted small" for="id_public">Public Comment</label>
+                    </div>
+                    <span class="material-icons text-muted ml-2" style="font-size: 1rem;" data-toggle="tooltip" title="Non-public comments are visible only to instructors">help_outline</span>
+                </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .rounded-xl { border-radius: 1.25rem !important; }
+    .bg-indigo { background-color: var(--primary); }
+    #comment-form textarea {
+        border-radius: 25px;
+        border: 1px solid #e2e8f0;
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+        resize: none;
+        height: 45px !important;
+        transition: all 0.2s;
+    }
+    #comment-form textarea:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        outline: none;
+    }
+    .message-bubble { 
+        padding: 0.75rem 1rem;
+        border-radius: 18px;
+        position: relative;
+    }
+    .bubble-sent {
+        border-bottom-right-radius: 2px;
+    }
+    .bubble-received {
+        border-bottom-left-radius: 2px;
+    }
+    .btn-primary.rounded-circle:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    }
+</style>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        
+        // Auto-scroll to bottom of feed if needed
+        // $('.comment-feed').scrollTop($('.comment-feed')[0].scrollHeight);
+    });
+</script>
+{% endblock %}

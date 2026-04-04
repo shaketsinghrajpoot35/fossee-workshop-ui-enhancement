@@ -1,145 +1,1432 @@
 /**
- * FOSSEE Workshop Booking - Modern Design System
- * Focus: High Contrast, Indigo Palette, Mobile-First spacing
+ * FOSSEE Workshop Booking — Modern Design System v2.0
+ * ====================================================
+ * Mobile-First · Glassmorphism · High Contrast · Accessible
+ * Design Principles: Visual hierarchy, generous whitespace,
+ * micro-interactions, and a cohesive indigo-based palette.
  */
 
+/* ==========================================
+   1. DESIGN TOKENS (CSS Custom Properties)
+   ========================================== */
 :root {
+    /* Primary Palette */
     --primary: #4f46e5;
+    --primary-light: #818cf8;
     --primary-hover: #4338ca;
+    --primary-subtle: #eef2ff;
+    --primary-glow: rgba(79, 70, 229, 0.15);
+
+    /* Neutral Palette */
     --slate-50: #f8fafc;
     --slate-100: #f1f5f9;
     --slate-200: #e2e8f0;
+    --slate-300: #cbd5e1;
+    --slate-400: #94a3b8;
+    --slate-500: #64748b;
+    --slate-600: #475569;
     --slate-700: #334155;
     --slate-800: #1e293b;
+    --slate-900: #0f172a;
+
+    /* Semantic Colors */
+    --emerald-50: #ecfdf5;
     --emerald-500: #10b981;
+    --emerald-700: #047857;
+    --amber-50: #fffbeb;
     --amber-500: #f59e0b;
-    --radius: 8px;
-    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --amber-700: #b45309;
+    --rose-50: #fff1f2;
+    --rose-500: #f43f5e;
+    --rose-700: #be123c;
+
+    /* Spacing Scale */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    --space-3xl: 4rem;
+
+    /* Typography */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.875rem;
+    --font-size-4xl: 2.25rem;
+
+    /* Border Radius */
+    --radius-sm: 6px;
+    --radius: 10px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -6px rgba(0, 0, 0, 0.04);
+    --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.08);
+    --shadow-glow: 0 0 30px rgba(79, 70, 229, 0.12);
+
+    /* Transitions */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* Glass Effect */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-blur: blur(20px);
+}
+
+/* ==========================================
+   2. BASE RESET & TYPOGRAPHY
+   ========================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font-family);
     background-color: var(--slate-50);
     color: var(--slate-800);
-    line-height: 1.6;
+    line-height: 1.7;
+    font-size: var(--font-size-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
 }
 
-/* Navbar Modernization */
+/* Animated gradient background for the entire page */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 400px;
+    background: linear-gradient(135deg, var(--primary-subtle) 0%, #faf5ff 50%, #fef3c7 100%);
+    z-index: -1;
+    opacity: 0.7;
+}
+
+::selection {
+    background-color: var(--primary);
+    color: white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.025em;
+    line-height: 1.3;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--primary-hover);
+}
+
+/* Accessibility: Focus Ring */
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+/* Skip to main content (accessibility) */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--primary);
+    color: white;
+    padding: 8px 16px;
+    z-index: 10000;
+    transition: top var(--transition-fast);
+}
+.skip-link:focus {
+    top: 0;
+}
+
+/* ==========================================
+   3. NAVBAR — Glassmorphic Floating Nav
+   ========================================== */
 .navbar {
-    background-color: var(--slate-800) !important;
-    padding: 0.8rem 1rem;
-    box-shadow: var(--shadow);
+    background: rgba(15, 23, 42, 0.92) !important;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    padding: 0.65rem 1rem;
+    box-shadow: var(--shadow-md);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all var(--transition-base);
+}
+
+.navbar.scrolled {
+    padding: 0.5rem 1rem;
+    background: rgba(15, 23, 42, 0.97) !important;
 }
 
 .navbar-brand {
     font-weight: 700;
-    letter-spacing: -0.025em;
-    font-size: 1.25rem;
+    letter-spacing: -0.03em;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.navbar-brand .material-icons {
+    font-size: 1.4rem;
+    background: linear-gradient(135deg, var(--primary-light), var(--primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .nav-link {
     font-weight: 500;
-    margin: 0 0.5rem;
-    transition: opacity 0.2s;
+    font-size: var(--font-size-sm);
+    padding: 0.5rem 0.85rem !important;
+    border-radius: var(--radius);
+    transition: all var(--transition-fast);
+    position: relative;
 }
 
 .nav-link:hover {
-    opacity: 0.8;
+    background: rgba(255, 255, 255, 0.08);
+    opacity: 1 !important;
 }
 
-/* Global Content Container */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 60%;
+    height: 2px;
+    background: var(--primary-light);
+    border-radius: 2px;
+    transition: transform var(--transition-base);
+}
+
+.nav-link:hover::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+/* Active CTA in nav */
+.nav-link[style*="fbbf24"] {
+    color: #fbbf24 !important;
+    background: rgba(251, 191, 36, 0.1);
+    border-radius: var(--radius);
+}
+
+.navbar-toggler {
+    padding: 0.4rem;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-fast);
+}
+
+.navbar-toggler:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-menu {
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-sm);
+    animation: dropdownSlide 200ms ease-out;
+}
+
+@keyframes dropdownSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-item {
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    transition: background var(--transition-fast);
+}
+
+.dropdown-item:hover {
+    background-color: var(--primary-subtle);
+}
+
+/* ==========================================
+   4. MAIN CONTENT AREA
+   ========================================== */
 .base-content {
-    padding-top: 6rem;
-    padding-bottom: 4rem;
-    min-height: calc(100vh - 120px);
+    padding-top: 5.5rem;
+    padding-bottom: 6rem;
+    min-height: calc(100vh - 60px);
+    animation: fadeInUp 600ms ease-out;
 }
 
-/* Buttons */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.6; }
+}
+
+@keyframes shimmer {
+    from { background-position: -200% 0; }
+    to { background-position: 200% 0; }
+}
+
+/* ==========================================
+   5. BUTTONS — Premium Interactions
+   ========================================== */
 .btn {
     border-radius: var(--radius);
-    padding: 0.5rem 1.25rem;
+    padding: 0.55rem 1.35rem;
     font-weight: 600;
-    transition: all 0.2s ease;
+    font-size: var(--font-size-sm);
+    letter-spacing: 0.01em;
+    transition: all var(--transition-base);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform var(--transition-slow);
+}
+
+.btn:hover::after {
+    transform: translateX(100%);
 }
 
 .btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover)) !important;
+    border: none !important;
+    color: white !important;
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.35) !important;
+    background: linear-gradient(135deg, var(--primary-light), var(--primary)) !important;
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(79, 70, 229, 0.2) !important;
+}
+
+.btn-outline-primary {
+    color: var(--primary) !important;
+    border: 1.5px solid var(--primary) !important;
+    background: transparent !important;
+}
+
+.btn-outline-primary:hover {
+    background: var(--primary-subtle) !important;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--emerald-500), var(--emerald-700)) !important;
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35) !important;
+}
+
+.btn-lg {
+    padding: 0.75rem 1.75rem;
+    font-size: var(--font-size-base);
+}
+
+.btn-sm {
+    padding: 0.35rem 0.9rem;
+    font-size: var(--font-size-xs);
+}
+
+.btn-block {
+    width: 100%;
+}
+
+/* ==========================================
+   6. CARDS — Glassmorphism + Elevation
+   ========================================== */
+.card {
+    border: 1px solid rgba(226, 232, 240, 0.6) !important;
+    border-radius: var(--radius-lg) !important;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-glass) !important;
+    transition: all var(--transition-base);
+    overflow: hidden;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-lg), var(--shadow-glow) !important;
+    transform: translateY(-2px);
+}
+
+.card-header {
+    background: transparent !important;
+    border-bottom: 1px solid var(--slate-100) !important;
+    padding: var(--space-lg) !important;
+}
+
+.card-body {
+    padding: var(--space-lg) !important;
+}
+
+/* ==========================================
+   7. FORMS — Modern Input Styling
+   ========================================== */
+.form-control,
+.custom-select {
+    border: 1.5px solid var(--slate-200);
+    border-radius: var(--radius);
+    padding: 0.65rem 1rem;
+    font-size: var(--font-size-sm);
+    font-family: var(--font-family);
+    background-color: var(--slate-50);
+    color: var(--slate-800);
+    transition: all var(--transition-fast);
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.form-control:hover,
+.custom-select:hover {
+    border-color: var(--slate-300);
+}
+
+.form-control:focus,
+.custom-select:focus {
+    background-color: #fff;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px var(--primary-glow) !important;
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: var(--slate-400);
+    font-weight: 400;
+}
+
+/* Floating Labels Enhancement */
+.form-group label,
+.form-group .control-label {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--slate-500);
+    margin-bottom: 0.4rem;
+    display: block;
+}
+
+/* Textarea */
+textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Error States */
+.errorlist,
+.text-danger {
+    color: var(--rose-500) !important;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+}
+
+.errorlist {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-xs) 0 0;
+}
+
+.errorlist li {
+    padding: var(--space-xs) 0;
+}
+
+/* Help text */
+.helptext,
+.form-text {
+    font-size: var(--font-size-xs);
+    color: var(--slate-400);
+    margin-top: 0.3rem;
+}
+
+/* Checkbox Custom */
+.custom-control-input:checked ~ .custom-control-label::before {
     background-color: var(--primary) !important;
     border-color: var(--primary) !important;
 }
 
-.btn-primary:hover {
-    background-color: var(--primary-hover) !important;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+.custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 3px var(--primary-glow);
 }
 
-.btn-success {
-    background-color: var(--emerald-500) !important;
-    border-color: var(--emerald-500) !important;
-}
-
-/* Cards & Containers */
-.card {
-    border: none;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    background: white;
-}
-
-.card-header {
-    background-color: white;
-    border-bottom: 1px solid var(--slate-100);
-    padding: 1.25rem;
-}
-
-/* Tables -> Respecting scans but adding spacing */
+/* ==========================================
+   8. TABLES — Clean Data Display
+   ========================================== */
 .table {
     background: white;
-    border-radius: var(--radius);
+    border-radius: var(--radius) !important;
     overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
-.table th {
+.table thead th {
     background-color: var(--slate-50);
     text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-    color: var(--slate-700);
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    color: var(--slate-500);
     border-top: none !important;
+    border-bottom: 2px solid var(--slate-100) !important;
+    padding: 0.85rem 1rem;
+    white-space: nowrap;
 }
 
-/* Badges */
+.table tbody td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--slate-100);
+    vertical-align: middle;
+    font-size: var(--font-size-sm);
+}
+
+.table-hover tbody tr {
+    transition: background var(--transition-fast);
+}
+
+.table-hover tbody tr:hover {
+    background-color: var(--primary-subtle) !important;
+}
+
+/* ==========================================
+   9. BADGES — Pill-Shaped Status Indicators
+   ========================================== */
 .badge {
-    padding: 0.5em 0.8em;
+    padding: 0.4em 0.9em;
     font-weight: 600;
-    border-radius: 9999px;
+    font-size: var(--font-size-xs);
+    border-radius: var(--radius-full);
+    letter-spacing: 0.02em;
 }
 
 .badge-success {
-    background-color: #dcfce7 !important;
+    background: linear-gradient(135deg, #dcfce7, #bbf7d0) !important;
     color: #166534 !important;
+    border: 1px solid #86efac;
 }
 
 .badge-warning {
-    background-color: #fef3c7 !important;
+    background: linear-gradient(135deg, #fef3c7, #fde68a) !important;
     color: #92400e !important;
+    border: 1px solid #fcd34d;
 }
 
-/* Footer Refresh */
+.badge-danger {
+    background: linear-gradient(135deg, #fee2e2, #fecaca) !important;
+    color: #991b1b !important;
+    border: 1px solid #fca5a5;
+}
+
+.badge-primary,
+.badge-indigo-subtle {
+    background: linear-gradient(135deg, #e0e7ff, #c7d2fe) !important;
+    color: #3730a3 !important;
+    border: 1px solid #a5b4fc;
+}
+
+.badge-light {
+    background: var(--slate-100) !important;
+    color: var(--slate-700) !important;
+    border: 1px solid var(--slate-200);
+}
+
+/* ==========================================
+   10. ALERTS — Modern Notification Bars
+   ========================================== */
+.alert {
+    border: none;
+    border-radius: var(--radius);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    padding: 0.85rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    animation: slideUp 300ms ease-out;
+}
+
+.alert-danger {
+    background: var(--rose-50);
+    color: var(--rose-700);
+    border-left: 4px solid var(--rose-500);
+}
+
+.alert-success {
+    background: var(--emerald-50);
+    color: var(--emerald-700);
+    border-left: 4px solid var(--emerald-500);
+}
+
+.alert-warning {
+    background: var(--amber-50);
+    color: var(--amber-700);
+    border-left: 4px solid var(--amber-500);
+}
+
+/* ==========================================
+   11. JUMBOTRON / HERO SECTIONS
+   ========================================== */
+.jumbotron {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-glass);
+    padding: var(--space-3xl) var(--space-2xl);
+    text-align: center;
+    animation: scaleIn 500ms ease-out;
+}
+
+.jumbotron h1 {
+    font-size: var(--font-size-3xl);
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary), #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--space-md);
+}
+
+.jumbotron p {
+    color: var(--slate-600);
+    font-size: var(--font-size-lg);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+/* ==========================================
+   12. FOOTER — Modern Sticky Footer
+   ========================================== */
 .footer {
-    background-color: var(--slate-800) !important;
-    padding: 1.5rem 0;
-    color: var(--slate-200);
-    font-size: 0.875rem;
-    margin-top: 2rem;
+    background: linear-gradient(135deg, var(--slate-800), var(--slate-900)) !important;
+    padding: 1.75rem 0 !important;
+    color: var(--slate-300) !important;
+    font-size: var(--font-size-sm);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative !important;
+    margin-top: var(--space-2xl);
 }
 
-/* Responsive Overrides */
+.footer p {
+    margin-bottom: 0.3rem;
+}
+
+.footer strong {
+    color: var(--primary-light);
+}
+
+.footer small {
+    color: var(--slate-400);
+}
+
+/* ==========================================
+   13. PAGINATION — Modern Page Nav
+   ========================================== */
+.pagination {
+    gap: var(--space-xs);
+}
+
+.page-item .page-link {
+    border-radius: var(--radius) !important;
+    border: 1.5px solid var(--slate-200);
+    color: var(--slate-600);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    padding: 0.5rem 0.85rem;
+    transition: all var(--transition-fast);
+}
+
+.page-item .page-link:hover {
+    background-color: var(--primary-subtle);
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-1px);
+}
+
+.page-item.active .page-link {
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover)) !important;
+    border-color: var(--primary) !important;
+    color: white !important;
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25);
+}
+
+/* ==========================================
+   14. MODAL — Frosted Glass Modals
+   ========================================== */
+.modal-content {
+    border: none !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow-xl) !important;
+    overflow: hidden;
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--slate-100) !important;
+    padding: var(--space-lg) var(--space-lg) var(--space-md);
+}
+
+.modal-title {
+    font-weight: 700;
+    font-size: var(--font-size-xl);
+}
+
+.modal-body {
+    padding: var(--space-lg) !important;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--slate-100) !important;
+    padding: var(--space-md) var(--space-lg);
+}
+
+.modal-backdrop.show {
+    opacity: 0.4;
+    backdrop-filter: blur(4px);
+}
+
+/* ==========================================
+   15. UTILITY CLASSES
+   ========================================== */
+.rounded-xl { border-radius: var(--radius-xl) !important; }
+.rounded-lg { border-radius: var(--radius-lg) !important; }
+.text-indigo-subtle { color: var(--primary-subtle); }
+.bg-indigo { background-color: var(--primary) !important; }
+.border-warning-subtle { border-color: #fef3c7 !important; }
+.bg-light-subtle { background-color: var(--slate-50) !important; }
+.cursor-pointer { cursor: pointer; }
+.font-weight-600 { font-weight: 600; }
+
+/* Gradient Text */
+.gradient-text {
+    background: linear-gradient(135deg, var(--primary), #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Glass Card Variant */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-glass);
+}
+
+/* Animated Entrance Classes */
+.animate-in {
+    animation: slideUp 400ms ease-out both;
+}
+
+.animate-in-delay-1 { animation-delay: 100ms; }
+.animate-in-delay-2 { animation-delay: 200ms; }
+.animate-in-delay-3 { animation-delay: 300ms; }
+
+/* Status Dot */
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.status-dot-success {
+    background-color: var(--emerald-500);
+    box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
+}
+
+.status-dot-warning {
+    background-color: var(--amber-500);
+    box-shadow: 0 0 6px rgba(245, 158, 11, 0.4);
+    animation: pulse 2s infinite;
+}
+
+/* ==========================================
+   16. LOGIN & REGISTER PAGES — Premium Auth UI
+   ========================================== */
+.auth-wrapper {
+    min-height: calc(100vh - 140px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-lg);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 440px;
+    background: #ffffff;
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
+    overflow: hidden;
+    animation: scaleIn 500ms ease-out;
+}
+
+.auth-card .card-header-custom {
+    text-align: center;
+    padding: var(--space-2xl) var(--space-xl) var(--space-lg);
+    background: linear-gradient(135deg, var(--primary-subtle), #faf5ff);
+    border-bottom: 1px solid var(--slate-100);
+}
+
+.auth-card .card-header-custom .auth-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, var(--primary), #7c3aed);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-md);
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+}
+
+.auth-card .card-header-custom .auth-icon .material-icons {
+    font-size: 2rem;
+    color: white;
+}
+
+.auth-card .card-header-custom h2 {
+    font-weight: 800;
+    font-size: var(--font-size-2xl);
+    color: var(--slate-800);
+    margin-bottom: 0.25rem;
+}
+
+.auth-card .card-header-custom p {
+    color: var(--slate-500);
+    font-size: var(--font-size-sm);
+    margin: 0;
+}
+
+.auth-card .card-body {
+    padding: var(--space-xl) !important;
+}
+
+.auth-card .auth-footer {
+    text-align: center;
+    padding: var(--space-md) var(--space-xl) var(--space-xl);
+    border-top: 1px solid var(--slate-100);
+    background: var(--slate-50);
+}
+
+.auth-card .auth-footer a {
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    color: var(--primary);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius);
+    transition: background var(--transition-fast);
+}
+
+.auth-card .auth-footer a:hover {
+    background: var(--primary-subtle);
+}
+
+/* ==========================================
+   17. ACTIVATION PAGE — Animated Status
+   ========================================== */
+.activation-wrapper {
+    min-height: calc(100vh - 140px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-lg);
+}
+
+.activation-card {
+    width: 100%;
+    max-width: 520px;
+    background: #ffffff;
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    padding: var(--space-3xl) var(--space-xl);
+    text-align: center;
+    animation: scaleIn 500ms ease-out;
+}
+
+.activation-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-lg);
+}
+
+.activation-icon-pending {
+    background: linear-gradient(135deg, var(--amber-50), #fef3c7);
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0.15);
+}
+
+.activation-icon-success {
+    background: linear-gradient(135deg, var(--emerald-50), #d1fae5);
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
+}
+
+.activation-icon-error {
+    background: linear-gradient(135deg, var(--rose-50), #ffe4e6);
+    box-shadow: 0 0 30px rgba(244, 63, 94, 0.15);
+}
+
+.activation-icon .material-icons {
+    font-size: 2.5rem;
+}
+
+/* ==========================================
+   18. PROFILE PAGE — Modern Card Layout
+   ========================================== */
+.profile-card {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    padding: var(--space-xl);
+    background: linear-gradient(135deg, var(--primary-subtle), #faf5ff);
+    border-bottom: 1px solid var(--slate-100);
+}
+
+.profile-avatar {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, var(--primary), #7c3aed);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: var(--font-size-2xl);
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+    flex-shrink: 0;
+}
+
+.profile-info h3 {
+    font-weight: 800;
+    margin-bottom: 0;
+}
+
+.profile-info p {
+    color: var(--slate-500);
+    font-size: var(--font-size-sm);
+    margin: 0;
+}
+
+.profile-details {
+    padding: var(--space-xl);
+}
+
+.profile-field {
+    display: flex;
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--slate-100);
+}
+
+.profile-field:last-child {
+    border-bottom: none;
+}
+
+.profile-field-label {
+    flex: 0 0 140px;
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--slate-400);
+    padding-top: 2px;
+}
+
+.profile-field-value {
+    flex: 1;
+    font-weight: 500;
+    color: var(--slate-800);
+}
+
+/* ==========================================
+   19. DISCUSSION / COMMENTS — Chat Bubbles
+   ========================================== */
+.comment-feed {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: var(--space-sm);
+}
+
+.comment-feed::-webkit-scrollbar {
+    width: 4px;
+}
+
+.comment-feed::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.comment-feed::-webkit-scrollbar-thumb {
+    background: var(--slate-300);
+    border-radius: var(--radius-full);
+}
+
+.avatar {
+    transition: transform var(--transition-fast);
+}
+
+.avatar:hover {
+    transform: scale(1.1);
+}
+
+.message-bubble {
+    padding: 0.85rem 1.15rem;
+    border-radius: 18px;
+    transition: box-shadow var(--transition-fast);
+}
+
+.message-bubble:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.bubble-sent {
+    border-bottom-right-radius: 4px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover)) !important;
+}
+
+.bubble-received {
+    border-bottom-left-radius: 4px;
+    background: white !important;
+    border: 1px solid var(--slate-100);
+}
+
+/* ==========================================
+   20. DATEPICKER — Premium Calendar
+   ========================================== */
+.ui-datepicker {
+    padding: var(--space-sm);
+    border: 1px solid var(--slate-200) !important;
+    box-shadow: var(--shadow-lg) !important;
+    border-radius: var(--radius-lg) !important;
+    font-family: var(--font-family) !important;
+    background: white;
+}
+
+.ui-datepicker-header {
+    background: white !important;
+    border: none !important;
+    border-bottom: 1px solid var(--slate-100) !important;
+    padding: var(--space-sm) !important;
+}
+
+.ui-state-default {
+    border-radius: var(--radius-sm) !important;
+    background: transparent !important;
+    border: none !important;
+    text-align: center !important;
+    padding: 6px !important;
+    transition: all var(--transition-fast) !important;
+}
+
+.ui-state-default:hover {
+    background: var(--primary-subtle) !important;
+    color: var(--primary) !important;
+}
+
+.ui-state-highlight {
+    color: var(--primary) !important;
+    font-weight: 700;
+    background: var(--primary-subtle) !important;
+}
+
+.ui-state-active {
+    background: var(--primary) !important;
+    color: white !important;
+}
+
+.ui-dialog {
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow-xl) !important;
+    border: none !important;
+    overflow: hidden;
+}
+
+.ui-dialog-titlebar {
+    background: transparent !important;
+    border-bottom: 1px solid var(--slate-100) !important;
+    font-weight: 700;
+    padding: var(--space-md) var(--space-lg) !important;
+}
+
+/* ==========================================
+   21. TOASTR OVERRIDE — Minimal Toasts
+   ========================================== */
+.toast-success { background-color: var(--emerald-500) !important; }
+.toast-error { background-color: var(--rose-500) !important; }
+.toast-info { background-color: var(--primary) !important; }
+.toast-warning { background-color: var(--amber-500) !important; }
+
+#toast-container > div {
+    border-radius: var(--radius) !important;
+    box-shadow: var(--shadow-lg) !important;
+    padding: 12px 16px !important;
+    font-family: var(--font-family) !important;
+    font-size: var(--font-size-sm) !important;
+    opacity: 1 !important;
+}
+
+/* ==========================================
+   22. REGISTER PAGE — Modern Multi-Field Form
+   ========================================== */
+.register-wrapper {
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+.register-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
+    overflow: hidden;
+    animation: scaleIn 500ms ease-out;
+}
+
+.register-card .register-header {
+    text-align: center;
+    padding: var(--space-2xl) var(--space-xl) var(--space-lg);
+    background: linear-gradient(135deg, var(--primary-subtle), #faf5ff, #fef3c7);
+    border-bottom: 1px solid var(--slate-100);
+}
+
+.register-card .register-header h2 {
+    font-weight: 800;
+    font-size: var(--font-size-2xl);
+    margin-bottom: 0.25rem;
+}
+
+.register-card .register-header p {
+    color: var(--slate-500);
+    font-size: var(--font-size-sm);
+    margin: 0;
+}
+
+/* Override table-based form in register */
+.register-card table.table {
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    margin: 0;
+}
+
+.register-card table.table td,
+.register-card table.table th {
+    border: none !important;
+    padding: 0.45rem 0.5rem;
+    background: transparent !important;
+}
+
+.register-card table.table th {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--slate-500);
+    vertical-align: top;
+    padding-top: 0.85rem;
+    white-space: nowrap;
+}
+
+.register-card table.table input,
+.register-card table.table select {
+    width: 100%;
+    min-width: 250px;
+    border: 1.5px solid var(--slate-200);
+    border-radius: var(--radius);
+    padding: 0.6rem 1rem;
+    font-size: var(--font-size-sm);
+    font-family: var(--font-family);
+    background-color: var(--slate-50);
+    transition: all var(--transition-fast);
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.register-card table.table input:focus,
+.register-card table.table select:focus {
+    background-color: #fff;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-glow);
+    outline: none;
+}
+
+/* ==========================================
+   23. RESPONSIVE — Mobile-First Overrides
+   ========================================== */
+
+/* Small screens (phones) */
+@media (max-width: 576px) {
+    :root {
+        --font-size-base: 0.9375rem;
+    }
+
+    body::before {
+        height: 250px;
+    }
+
+    .base-content {
+        padding-top: 4.5rem;
+        padding-bottom: 5rem;
+    }
+
+    .container {
+        padding-left: var(--space-md);
+        padding-right: var(--space-md);
+    }
+
+    .navbar {
+        padding: 0.5rem 0.75rem;
+    }
+
+    .navbar-brand {
+        font-size: 1.05rem;
+    }
+
+    h1 { font-size: var(--font-size-2xl); }
+    h2 { font-size: var(--font-size-xl); }
+    h3 { font-size: var(--font-size-lg); }
+
+    .card {
+        border-radius: var(--radius) !important;
+    }
+
+    .auth-card,
+    .activation-card {
+        border-radius: var(--radius-lg);
+    }
+
+    .jumbotron {
+        padding: var(--space-xl) var(--space-lg);
+        border-radius: var(--radius-lg);
+    }
+
+    .jumbotron h1 {
+        font-size: var(--font-size-2xl);
+    }
+
+    .btn-lg {
+        padding: 0.65rem 1.25rem;
+        font-size: var(--font-size-sm);
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-field {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .profile-field-label {
+        flex: initial;
+    }
+
+    .table thead {
+        font-size: 0.65rem;
+    }
+
+    .table tbody td {
+        font-size: var(--font-size-xs);
+        padding: 0.65rem 0.5rem;
+    }
+
+    .footer {
+        padding: 1.25rem 0 !important;
+    }
+}
+
+/* Medium screens (tablets) */
 @media (max-width: 768px) {
     .navbar-nav {
-        margin-top: 1rem;
+        margin-top: var(--space-md);
+        padding-top: var(--space-md);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
+
+    .nav-link::after {
+        display: none;
+    }
+
     .base-content {
         padding-top: 5rem;
+    }
+}
+
+/* Large screens */
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1080px;
+    }
+}
+
+/* ==========================================
+   24. PRINT STYLES
+   ========================================== */
+@media print {
+    body::before,
+    .navbar,
+    .footer,
+    .btn,
+    .dropdown {
+        display: none !important;
+    }
+
+    .base-content {
+        padding: 0;
+    }
+
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+    }
+}
+
+/* ==========================================
+   25. REDUCED MOTION — Accessibility
+   ========================================== */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ==========================================
+   26. HIGH CONTRAST MODE
+   ========================================== */
+@media (prefers-contrast: high) {
+    :root {
+        --primary: #3730a3;
+        --slate-50: #ffffff;
+        --slate-800: #000000;
+    }
+
+    .card {
+        border: 2px solid #000 !important;
+    }
+
+    .btn-primary {
+        border: 2px solid #000 !important;
     }
 }

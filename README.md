@@ -147,6 +147,25 @@ Django renders server-side HTML, while React controls DOM.
 
 ---
 
+# 📸 Before & After Screenshots
+
+### Login Page
+| Before | After |
+|:---:|:---:|
+| <img src="assets/images/login-before.png" width="400"> | <img src="assets/images/login-after.png" width="400"> |
+
+### Registration Page
+| Before | After |
+|:---:|:---:|
+| <img src="assets/images/register-before.png" width="400"> | <img src="assets/images/register-after.png" width="400"> |
+
+### Workshop Types
+| Before | After |
+|:---:|:---:|
+| <img src="assets/images/types-before.png" width="400"> | <img src="assets/images/types-after.png" width="400"> |
+
+---
+
 # 📊 Impact of Improvements
 
 | Area             | Before  | After     |

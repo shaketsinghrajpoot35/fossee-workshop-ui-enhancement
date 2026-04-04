@@ -1,53 +1,85 @@
 {% extends 'workshop_app/base.html' %}
 
 {% block title %}
-    Login
+    Sign In | FOSSEE Workshops
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-md-offset-6">
-                <div class="card">
-                    <div class="card-body">
-                        <form class="px-3 py-3" method="post">
-                        {% csrf_token %}
-                        {% if form.errors %}
-                            {% for field in form %}
-                                {% for error in field.errors %}
-                                    <div class="alert alert-dismissible alert-danger">
-                                        <button type="button" class="close" data-dismiss="alert">
-                                            <i class="fa fa-close"></i>
-                                        </button>
-                                        <strong>{{ error|escape }}</strong>
-                                    </div>
-                                {% endfor %}
-                            {% endfor %}
-                            {% for error in form.non_field_errors %}
-                                <div class="alert alert-dismissible alert-danger">
-                                    <button type="button" class="close" data-dismiss="alert">
-                                        <i class="fa fa-close"></i>
-                                    </button>
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <!-- Header with icon -->
+            <div class="card-header-custom">
+                <div class="auth-icon">
+                    <span class="material-icons">login</span>
+                </div>
+                <h2>Welcome Back</h2>
+                <p>Sign in to manage your workshops</p>
+            </div>
+
+            <!-- Form Body -->
+            <div class="card-body">
+                <form method="post" id="login-form" novalidate>
+                    {% csrf_token %}
+
+                    {% if form.errors %}
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <div class="alert alert-danger animate-in" role="alert">
+                                    <span class="material-icons mr-2" style="font-size: 1.2rem">error_outline</span>
                                     <strong>{{ error|escape }}</strong>
                                 </div>
                             {% endfor %}
-                        {% endif %}
-                        <div class="form-group">
-                          <label for="id_username">Username</label>
-                          {{ form.username }}
-                        </div>
-                        <div class="form-group">
-                          <label for="id_password">Password</label>
-                          {{ form.password }}
-                        </div>
-                        <button type="submit" class="btn btn-primary">Sign in</button>
-                        </form>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{% url 'workshop_app:register' %}">New around here? Sign up</a>
-                        <a class="dropdown-item" href="{% url 'password_reset' %}">Forgot password?</a>
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <div class="alert alert-danger animate-in" role="alert">
+                                <span class="material-icons mr-2" style="font-size: 1.2rem">error_outline</span>
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="form-group mb-3">
+                        <label for="id_username">
+                            <span class="material-icons mr-1" style="font-size: 0.85rem; vertical-align: text-top">person</span>
+                            Username
+                        </label>
+                        {{ form.username }}
                     </div>
-                </div>  
+
+                    <div class="form-group mb-4">
+                        <label for="id_password">
+                            <span class="material-icons mr-1" style="font-size: 0.85rem; vertical-align: text-top">lock</span>
+                            Password
+                        </label>
+                        {{ form.password }}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" id="login-submit">
+                        <span class="material-icons mr-2">arrow_forward</span> Sign In
+                    </button>
+                </form>
+            </div>
+
+            <!-- Footer Links -->
+            <div class="auth-footer">
+                <div class="mb-2">
+                    <a href="{% url 'workshop_app:register' %}">
+                        <span class="material-icons" style="font-size: 1rem">person_add</span>
+                        New here? Create an account
+                    </a>
+                </div>
+                <a href="{% url 'password_reset' %}" class="text-muted">
+                    <span class="material-icons" style="font-size: 1rem">help_outline</span>
+                    Forgot password?
+                </a>
             </div>
         </div>
     </div>
+
+<script>
+    // Add form-control class to Django-rendered form fields
+    $(document).ready(function() {
+        $('#id_username, #id_password').addClass('form-control');
+    });
+</script>
 {% endblock %}

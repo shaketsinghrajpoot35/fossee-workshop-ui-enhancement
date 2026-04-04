@@ -1,32 +1,49 @@
 {% extends 'workshop_app/base.html' %}
 
 {% block title %}
-    View Workshop details
+    {{ workshop_type.name }} | FOSSEE Workshops
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <h2 class="text-center m-3">Workshop Details</h2>
-        <table class="table table-hover">
-            <tr class="d-flex">
-                <th class="col-3">Workshop Name :</th>
-                <td class="col">{{ workshop_type.name }}</td>
-            </tr>
-            <tr class="d-flex">
-                <th class="col-3">Duration :</th>
-                <td class="col">{{ workshop_type.duration }} day(s)</td>
-            </tr>
-            <tr class="d-flex">
-                <th class="col-3">Description :</th>
-                <td class="col">{{ workshop_type.description }}</td>
-            </tr>
-            <tr class="d-flex">
-                <th class="col-3">Terms and Conditions :</th>
-                <td class="col">{{ workshop_type.terms_and_conditions }}</td>
-            </tr>
-        </table>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 animate-in" style="overflow: hidden;">
+                <!-- Header with gradient accent -->
+                <div style="height: 4px; background: linear-gradient(135deg, #4f46e5, #7c3aed);"></div>
+                <div class="card-body" style="padding: 2rem !important;">
+                    <div class="d-flex align-items-center mb-4">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #eef2ff, #e0e7ff); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; flex-shrink: 0;">
+                            <span class="material-icons" style="color: #4f46e5; font-size: 1.5rem;">menu_book</span>
+                        </div>
+                        <div>
+                            <h2 class="font-weight-bold mb-0">{{ workshop_type.name }}</h2>
+                            <span class="badge badge-primary mt-1">{{ workshop_type.duration }} Day(s)</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-field">
+                        <div class="profile-field-label" style="flex: 0 0 160px;">
+                            <span class="material-icons mr-1" style="font-size: 0.85rem; vertical-align: text-top;">description</span>
+                            Description
+                        </div>
+                        <div class="profile-field-value" style="line-height: 1.8;">{{ workshop_type.description }}</div>
+                    </div>
+
+                    <div class="profile-field">
+                        <div class="profile-field-label" style="flex: 0 0 160px;">
+                            <span class="material-icons mr-1" style="font-size: 0.85rem; vertical-align: text-top;">gavel</span>
+                            Terms & Conditions
+                        </div>
+                        <div class="profile-field-value" style="line-height: 1.8;">{{ workshop_type.terms_and_conditions }}</div>
+                    </div>
+
+                    <div class="mt-4 text-center">
+                        <a href="{% url 'workshop_app:workshop_type_list' %}" class="btn btn-outline-primary">
+                            <span class="material-icons mr-1" style="font-size: 1rem;">arrow_back</span> Back to All Types
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
 {% endblock %}
-
-

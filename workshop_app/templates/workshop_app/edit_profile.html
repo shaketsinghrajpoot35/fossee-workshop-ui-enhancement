@@ -1,20 +1,46 @@
 {% extends "workshop_app/base.html" %}
 
 {% block title %}
-	Edit Profile
+	Edit Profile | FOSSEE Workshops
 {% endblock %}
 
 {% block content %}
-  <div class="container">
-    <form action="{{URL_ROOT}}/edit_profile/" method="post" >
-    {% csrf_token %}
-      <center>
-        <table class="table table-bordered">
-          {{ form.as_table }}
-        </table>
-      </center>
-      <br>
-        <button class="btn btn-primary pull-right" type="submit">Save Profile</button>
-    </form>
+  <div class="row justify-content-center">
+    <div class="col-md-7">
+      <div class="profile-card card animate-in">
+        <div class="profile-header">
+          <div class="profile-avatar">
+            {{ request.user.first_name|first }}{{ request.user.last_name|first }}
+          </div>
+          <div class="profile-info">
+            <h3>Edit Profile</h3>
+            <p>Keep your information up to date.</p>
+          </div>
+        </div>
+
+        <div class="profile-details">
+          <form action="{{URL_ROOT}}/edit_profile/" method="post" id="edit-profile-form">
+            {% csrf_token %}
+
+            {% for field in form %}
+              <div class="form-group mb-3">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                  <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+                {% if field.errors %}
+                  <div class="text-danger small mt-1">{{ field.errors.0 }}</div>
+                {% endif %}
+              </div>
+            {% endfor %}
+
+            <button class="btn btn-primary btn-lg btn-block mt-3" type="submit">
+              <span class="material-icons mr-2" style="font-size: 1.1rem">save</span> Save Profile
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 {% endblock %}

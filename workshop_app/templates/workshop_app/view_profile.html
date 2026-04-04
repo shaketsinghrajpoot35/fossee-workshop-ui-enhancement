@@ -1,129 +1,157 @@
 {% extends 'workshop_app/base.html' %}
 
-{% block title %} Profile {% endblock %}
+{% block title %} {% if coordinator_profile %}{{ coordinator_profile.user.get_full_name }}'s Profile{% else %}My Profile{% endif %} | FOSSEE {% endblock %}
 
 {% csrf_token %}
 {% block content %}
 
     <div class="container">
         {% if Workshops %}
-            <table class="table table-bordered">
-                <tr>
-                    <th><label for="id_first_name"><h5>First name:</h5></label></th>
-                    <th><label for="id_first_name"><h5>{{ coordinator_profile.user.first_name }}</h5></label></th>
-                </tr>
-                <tr>
-                    <th><label for="id_last_name"><h5>Last name:</h5></label></th>
-                    <th><label for="id_last_name"><h5>{{ coordinator_profile.user.last_name }}</h5></label></th>
-                </tr>
-                <tr>
-                    <th><label for="id_email"><h5>Email:</h5></label></th>
-                    <th><label for="id_email"><h5>{{ coordinator_profile.user.email }}</h5></label></th>
-                </tr>
-                <tr>
-                    <th><label for="id_institute"><h5>Institute:</h5></label></th>
-                    <th><label for="id_institute"><h5>{{ coordinator_profile.user.profile.institute }}</h5></label></th>
-                </tr>
-                <tr>
-                    <th><label for="id_phone_number"><h5>Phone Number:</h5></label></th>
-                    <th><label for="id_phone_number"><h5>{{ coordinator_profile.user.profile.phone_number }}</h5></label>
-                    </th>
-                </tr>
-                <tr>
-                    <th><label for="id_department"><h5>Department:</h5></label></th>
-                    <th><label for="id_department"><h5>{{ coordinator_profile.user.profile.department }}</h5></label></th>
-                </tr>
-                <tr>
-                    <th><label for="id_location"><h5>Location:</h5></label></th>
-                    <th><label for="id_location"><h5>{{ coordinator_profile.user.profile.location }}</h5></label></th>
-                </tr>
-                <tr>
-                    <th><label for="id_position"><h5>Position:</h5></label></th>
-                    <th><label for="id_position"><h5>{{ coordinator_profile.user.profile.position }}</h5></label></th>
-                </tr>
-            </table>
-            <br>
-
-            <div class="container">
-            <h2>Workshop Details</h2>
-            <table class="table table-bordered">
-            <tr>
-                <th><label for="id_instructor_name">Instructor name</label></th>
-                <th><label for="id_workshop_date">Workshop date</label></th>
-                <th><label for="id_workshop_type">Workshop type</label></th>
-            </tr>
-            {% for workshop in Workshops %}
-                {% if workshop.instructor %}
-                    <tr>
-                        <td><label for="id_instructor_name">{{ workshop.instructor }}
-                        </label></td>
-                        <td><label for="id_workshop_date">{{ workshop.date }}</label>
-                        </td>
-                        <td><label for="id_workshop_type">{{ workshop.workshop_type }}</label>
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td><span class="badge badge-warning">Pending</span></td>
-                        <td><label for="id_workshop_date">{{ workshop.date }}</label>
-                        </td>
-                        <td><label for="id_workshop_type">{{ workshop.workshop_type }}</label>
-                        </td>
-                    </tr>
-                {% endif %}
-            {% endfor %}
-            </table>
-            </div>
-            <br><br>
-        {% else %}
-            <form action="" method="post">
-              {% csrf_token %}
-                <div class="row justify-content-center form-group">
-                    <div class="col-md-6">
-                    <form action="" method="post">
-                        <fieldset>
-                            {% csrf_token %}
-                            {% if form.errors %}
-                                {% for field in form %}
-                                    {% for error in field.errors %}
-                                        <div class="alert alert-dismissible alert-danger">
-                                            <button type="button" class="close" data-dismiss="alert">
-                                                <i class="fa fa-close"></i>
-                                            </button>
-                                            <strong>{{field.label}} : {{ error|escape }}</strong>
-                                        </div>
-                                    {% endfor %}
-                                {% endfor %}
-                                {% for error in form.non_field_errors %}
-                                    <div class="alert alert-dismissible alert-danger">
-                                        <button type="button" class="close" data-dismiss="alert">
-                                            <i class="fa fa-close"></i>
-                                        </button>
-                                        <strong>{{field.label}} : {{ error|escape }}</strong>
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
-                            <table class="table table-responsive-sm">
-                                <tr><td>{{form.title}}</td></tr>
-                                <tr><td>{{form.first_name}}</td></tr>
-                                <tr><td>{{form.last_name}}</td></tr>
-                                <tr><td>{{form.phone_number}}</td></tr>
-                                <tr><td>{{form.institute}}</td></tr>
-                                <tr><td>{{form.department}}</td></tr>
-                                <tr><td>{{form.position}}</td></tr>
-                                <tr><td>{{form.location}}</td></tr>
-                                <tr><td>{{form.state}}</td></tr>
-                            </table>
-                            <br>
-                        </fieldset>
-                        <button class="btn btn-success btn-lg" type="submit">
-                            <i class="fa fa-pencil-square-o"></i>&nbsp;Update</button>
-                        <a href="{% url 'workshop_app:index' %}" class="btn btn-primary btn-lg">Cancel
-                        </a>
-                    </form>
+            <!-- Viewing another user's profile (instructor viewing coordinator) -->
+            <div class="profile-card card animate-in">
+                <!-- Profile Header -->
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        {{ coordinator_profile.user.first_name|first }}{{ coordinator_profile.user.last_name|first }}
+                    </div>
+                    <div class="profile-info">
+                        <h3>{{ coordinator_profile.user.get_full_name|title }}</h3>
+                        <p>
+                            <span class="material-icons mr-1" style="font-size: 0.9rem; vertical-align: text-bottom;">badge</span>
+                            {{ coordinator_profile.position|title }} · {{ coordinator_profile.department|title }}
+                        </p>
                     </div>
                 </div>
-            </form>
+
+                <!-- Profile Details -->
+                <div class="profile-details">
+                    <div class="profile-field">
+                        <div class="profile-field-label">Email</div>
+                        <div class="profile-field-value">{{ coordinator_profile.user.email }}</div>
+                    </div>
+                    <div class="profile-field">
+                        <div class="profile-field-label">Institute</div>
+                        <div class="profile-field-value">{{ coordinator_profile.user.profile.institute }}</div>
+                    </div>
+                    <div class="profile-field">
+                        <div class="profile-field-label">Phone</div>
+                        <div class="profile-field-value">{{ coordinator_profile.user.profile.phone_number }}</div>
+                    </div>
+                    <div class="profile-field">
+                        <div class="profile-field-label">Department</div>
+                        <div class="profile-field-value">{{ coordinator_profile.user.profile.department|title }}</div>
+                    </div>
+                    <div class="profile-field">
+                        <div class="profile-field-label">Location</div>
+                        <div class="profile-field-value">{{ coordinator_profile.user.profile.location }}</div>
+                    </div>
+                    <div class="profile-field">
+                        <div class="profile-field-label">Position</div>
+                        <div class="profile-field-value">
+                            <span class="badge badge-primary">{{ coordinator_profile.user.profile.position|title }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workshop History -->
+            <div class="mt-4 animate-in animate-in-delay-1">
+                <h4 class="font-weight-bold mb-3 d-flex align-items-center">
+                    <span class="material-icons text-primary mr-2">event_note</span>
+                    Workshop History
+                </h4>
+                <div class="card border-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Instructor</th>
+                                    <th>Date</th>
+                                    <th>Workshop Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for workshop in Workshops %}
+                                    <tr>
+                                        <td>
+                                            {% if workshop.instructor %}
+                                                <span class="font-weight-bold">{{ workshop.instructor }}</span>
+                                            {% else %}
+                                                <span class="badge badge-warning">Pending</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ workshop.date|date:"M d, Y" }}</td>
+                                        <td>{{ workshop.workshop_type }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        {% else %}
+            <!-- Editing own profile -->
+            <div class="row justify-content-center">
+                <div class="col-md-7">
+                    <div class="profile-card card animate-in">
+                        <!-- Profile Header -->
+                        <div class="profile-header">
+                            <div class="profile-avatar">
+                                {{ request.user.first_name|first }}{{ request.user.last_name|first }}
+                            </div>
+                            <div class="profile-info">
+                                <h3>Edit Your Profile</h3>
+                                <p>Update your personal and institutional details below.</p>
+                            </div>
+                        </div>
+
+                        <!-- Edit Form -->
+                        <div class="profile-details">
+                            <form action="" method="post" id="profile-form">
+                                {% csrf_token %}
+
+                                {% if form.errors %}
+                                    {% for field in form %}
+                                        {% for error in field.errors %}
+                                            <div class="alert alert-danger animate-in" role="alert">
+                                                <span class="material-icons mr-2" style="font-size: 1.1rem">error_outline</span>
+                                                <strong>{{field.label}}: {{ error|escape }}</strong>
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+                                    {% for error in form.non_field_errors %}
+                                        <div class="alert alert-danger animate-in" role="alert">
+                                            <span class="material-icons mr-2" style="font-size: 1.1rem">error_outline</span>
+                                            <strong>{{ error|escape }}</strong>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+
+                                {% for field in form %}
+                                    <div class="form-group mb-3">
+                                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                        {{ field }}
+                                        {% if field.help_text %}
+                                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                                        {% endif %}
+                                        {% if field.errors %}
+                                            <div class="text-danger small mt-1">{{ field.errors.0 }}</div>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+
+                                <div class="d-flex gap-2 mt-4" style="gap: 0.75rem;">
+                                    <button class="btn btn-primary flex-grow-1" type="submit">
+                                        <span class="material-icons mr-2" style="font-size: 1.1rem">save</span> Save Changes
+                                    </button>
+                                    <a href="{% url 'workshop_app:index' %}" class="btn btn-outline-primary">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% endif %}
     </div>
 {% endblock %}

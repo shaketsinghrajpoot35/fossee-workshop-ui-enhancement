@@ -1,50 +1,73 @@
 {% extends 'workshop_app/base.html' %}
 
 {% block title %}
-    Add new Workshop type
+    Add Workshop Type | FOSSEE Workshops
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <h2 class="text-center m-2">New Workshop Type</h2>
-        <br>
-        <form method="post">
-            <div class="row my-3">
-                <div class="col-3 font-weight-bold">Workshop Name :</div>
-                <div class="col text-left">
-                    <div class="row"><div class="col">{{ form.name }}</div></div>
-                    <div class="row m-1 text-danger"><div class="col">{{ form.name.errors }}</div></div>
-                </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card border-0 animate-in" style="overflow: hidden;">
+                <!-- Gradient accent bar -->
+                <div style="height: 4px; background: linear-gradient(135deg, #4f46e5, #7c3aed);"></div>
 
-            </div>
-            <div class="row my-3">
-                <div class="col-3 font-weight-bold">Duration :</div>
-                <div class="col text-left">
-                    <div class="row"><div class="col">{{ form.duration }}</div></div>
-                    <div class="row m-1 text-muted"><div class="col">{{ form.duration.help_text }}</div></div>
-                    <div class="row m-1 text-danger"><div class="col">{{ form.duration.errors }}</div></div>
-                </div>
-            </div>
-            <div class="row my-3">
-                <div class="col-3 font-weight-bold">Description :</div>
-                <div class="col text-left">
-                    <div class="row"><div class="col">{{ form.description }}</div></div>
-                    <div class="row m-1 text-danger"><div class="col">{{ form.description.errors }}</div></div>
-                </div>
-            </div>
-            <div class="row my-3">
-                <div class="col-3 font-weight-bold">Terms and Conditions :</div>
-                <div class="col text-left">
-                    <div class="row"><div class="col">{{ form.terms_and_conditions }}</div></div>
-                    <div class="row m-1 text-danger"><div class="col">{{ form.terms_and_conditions.errors }}</div></div>
-                </div>
-            </div>
+                <div class="card-body" style="padding: 2rem !important;">
+                    <div class="d-flex align-items-center mb-4">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #eef2ff, #e0e7ff); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">
+                            <span class="material-icons" style="color: #4f46e5; font-size: 1.5rem;">library_add</span>
+                        </div>
+                        <div>
+                            <h2 class="font-weight-bold mb-0">New Workshop Type</h2>
+                            <p class="text-muted small mb-0">Define a new workshop category for coordinators.</p>
+                        </div>
+                    </div>
 
-            <div class="row my-3">
-                <div class="col-12">
-                    <button type="submit" class="btn btn-md btn-primary float-right m-3">Create</button>
+                    <form method="post" id="add-workshop-type-form">
+                        {% csrf_token %}
+
+                        <div class="form-group mb-3">
+                            <label for="id_name">
+                                <span class="material-icons mr-1" style="font-size: 0.85rem; vertical-align: text-top;">label</span>
+                                Workshop Name
+                            </label>
+                            {{ form.name }}
+                            {% if form.name.errors %}<div class="text-danger small mt-1">{{ form.name.errors.0 }}</div>{% endif %}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="id_duration">
+                                <span class="material-icons mr-1" style="font-size: 0.85rem; vertical-align: text-top;">schedule</span>
+                                Duration
+                            </label>
+                            {{ form.duration }}
+                            <small class="form-text text-muted">{{ form.duration.help_text }}</small>
+                            {% if form.duration.errors %}<div class="text-danger small mt-1">{{ form.duration.errors.0 }}</div>{% endif %}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="id_description">
+                                <span class="material-icons mr-1" style="font-size: 0.85rem; vertical-align: text-top;">description</span>
+                                Description
+                            </label>
+                            {{ form.description }}
+                            {% if form.description.errors %}<div class="text-danger small mt-1">{{ form.description.errors.0 }}</div>{% endif %}
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="id_terms_and_conditions">
+                                <span class="material-icons mr-1" style="font-size: 0.85rem; vertical-align: text-top;">gavel</span>
+                                Terms and Conditions
+                            </label>
+                            {{ form.terms_and_conditions }}
+                            {% if form.terms_and_conditions.errors %}<div class="text-danger small mt-1">{{ form.terms_and_conditions.errors.0 }}</div>{% endif %}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                            <span class="material-icons mr-2">add_circle</span> Create Workshop Type
+                        </button>
+                    </form>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 {% endblock %}

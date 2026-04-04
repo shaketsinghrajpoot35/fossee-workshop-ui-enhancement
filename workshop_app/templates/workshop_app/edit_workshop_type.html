@@ -2,109 +2,122 @@
 {% load static %}
 
 {% block title %}
-    Add new Workshop type
+    Edit Workshop Type | FOSSEE Workshops
 {% endblock %}
 
 {% block extra-dependencies %}
 {% endblock %}
 
 {% block extra-custom-scripts %}
-
     <script src="{% static 'workshop_app/js/jquery.formset.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <h2 class="text-center m-2">View / Edit Workshop Type</h2>
-        <br>
-        <form method="post" enctype="multipart/form-data">
-            <div class="row my-3">
-                <div class="col-3 font-weight-bold">Workshop Name :</div>
-                <div class="col text-left">
-                    <div class="row">
-                        <div class="col">{{ form.name }}</div>
-                    </div>
-                    <div class="row m-1 text-danger">
-                        <div class="col">{{ form.name.errors }}</div>
-                    </div>
-                </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 animate-in" style="overflow: hidden;">
+                <!-- Gradient accent bar -->
+                <div style="height: 4px; background: linear-gradient(135deg, #4f46e5, #7c3aed);"></div>
 
-            </div>
-            <div class="row my-3">
-                <div class="col-3 font-weight-bold">Duration :</div>
-                <div class="col text-left">
-                    <div class="row">
-                        <div class="col">{{ form.duration }}</div>
-                    </div>
-                    <div class="row m-1 text-muted">
-                        <div class="col">{{ form.duration.help_text }}</div>
-                    </div>
-                    <div class="row m-1 text-danger">
-                        <div class="col">{{ form.duration.errors }}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row my-3">
-                <div class="col-3 font-weight-bold">Description :</div>
-                <div class="col text-left">
-                    <div class="row">
-                        <div class="col">{{ form.description }}</div>
-                    </div>
-                    <div class="row m-1 text-danger">
-                        <div class="col">{{ form.description.errors }}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row my-3">
-                <div class="col-3 font-weight-bold">Terms and Conditions :</div>
-                <div class="col text-left">
-                    <div class="row">
-                        <div class="col">{{ form.terms_and_conditions }}</div>
-                    </div>
-                    <div class="row m-1 text-danger">
-                        <div class="col">{{ form.terms_and_conditions.errors }}</div>
-                    </div>
-                </div>
-            </div>
-
-            <h2 class="text-center m-2">Attachments</h2>
-            {{ form_file.management_form }}
-            {{ form_file.non_form_errors }}
-            {% for form in form_file %}
-                <div class="inline {{ form_file.prefix }} my-4">
-                    <div class="row">
-                        <div class="col-11">
-                            {% for field in form %}
-                                <div class="col-6">{{ field }}</div>
-                            {% endfor %}
+                <div class="card-body" style="padding: 2rem !important;">
+                    <div class="d-flex align-items-center mb-4">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #eef2ff, #e0e7ff); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">
+                            <span class="material-icons" style="color: #4f46e5; font-size: 1.5rem;">edit_note</span>
                         </div>
-                    {% if form.id.value %}
-                    <div class="col-1">
-                        <a href="{% url 'workshop_app:delete_attachment_file' form.id.value %}"><button class="btn btn-md btn-danger float-right" type="button">Delete</button></a>
-                    </div>
-                    {% endif %}
+                        <div>
+                            <h2 class="font-weight-bold mb-0">Edit Workshop Type</h2>
+                            <p class="text-muted small mb-0">Update workshop details and manage attachments.</p>
+                        </div>
                     </div>
 
-                </div>
-                <hr>
-            {% endfor %}
-            <div class="row my-3">
-                <div class="col-12">
-                    <button type="submit" class="btn btn-md btn-primary float-right m-3">Save</button>
+                    <form method="post" enctype="multipart/form-data" id="edit-workshop-type-form">
+                        {% csrf_token %}
+
+                        <div class="form-group mb-3">
+                            <label>
+                                <span class="material-icons mr-1" style="font-size: 0.85rem; vertical-align: text-top;">label</span>
+                                Workshop Name
+                            </label>
+                            {{ form.name }}
+                            {% if form.name.errors %}<div class="text-danger small mt-1">{{ form.name.errors }}</div>{% endif %}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label>
+                                <span class="material-icons mr-1" style="font-size: 0.85rem; vertical-align: text-top;">schedule</span>
+                                Duration
+                            </label>
+                            {{ form.duration }}
+                            <small class="form-text text-muted">{{ form.duration.help_text }}</small>
+                            {% if form.duration.errors %}<div class="text-danger small mt-1">{{ form.duration.errors }}</div>{% endif %}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label>
+                                <span class="material-icons mr-1" style="font-size: 0.85rem; vertical-align: text-top;">description</span>
+                                Description
+                            </label>
+                            {{ form.description }}
+                            {% if form.description.errors %}<div class="text-danger small mt-1">{{ form.description.errors }}</div>{% endif %}
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label>
+                                <span class="material-icons mr-1" style="font-size: 0.85rem; vertical-align: text-top;">gavel</span>
+                                Terms and Conditions
+                            </label>
+                            {{ form.terms_and_conditions }}
+                            {% if form.terms_and_conditions.errors %}<div class="text-danger small mt-1">{{ form.terms_and_conditions.errors }}</div>{% endif %}
+                        </div>
+
+                        <!-- Attachments Section -->
+                        <div class="mt-4 mb-3">
+                            <h5 class="font-weight-bold d-flex align-items-center">
+                                <span class="material-icons text-primary mr-2">attach_file</span>
+                                Attachments
+                            </h5>
+                        </div>
+
+                        {{ form_file.management_form }}
+                        {{ form_file.non_form_errors }}
+                        {% for form in form_file %}
+                            <div class="inline {{ form_file.prefix }} my-3">
+                                <div class="d-flex align-items-center" style="gap: 0.75rem;">
+                                    <div class="flex-grow-1">
+                                        {% for field in form %}
+                                            {{ field }}
+                                        {% endfor %}
+                                    </div>
+                                    {% if form.id.value %}
+                                    <a href="{% url 'workshop_app:delete_attachment_file' form.id.value %}">
+                                        <button class="btn btn-sm" type="button" style="background: #fee2e2; color: #be123c; border-radius: 8px; padding: 0.4rem 0.75rem;">
+                                            <span class="material-icons" style="font-size: 1rem;">delete</span>
+                                        </button>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <hr style="border-color: #f1f5f9;">
+                        {% endfor %}
+
+                        <button type="submit" class="btn btn-primary btn-lg btn-block mt-3">
+                            <span class="material-icons mr-2">save</span> Save Changes
+                        </button>
+                    </form>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
-    <br><br><br><br>
+
     <script type="text/javascript">
         $(function () {
             $(".inline.{{ form_file.prefix }}").formset({
-                prefix: "{{ form_file.prefix }}", // The form prefix for your django formset
-                addCssClass: "btn btn-md btn-primary bordered inline-form-add", // CSS class applied to the add link
-                deleteCssClass: "hidden", // CSS class applied to the delete link
-                addText: 'Add another attachment', // Text for the add link
+                prefix: "{{ form_file.prefix }}",
+                addCssClass: "btn btn-outline-primary btn-sm mt-2",
+                deleteCssClass: "hidden",
+                addText: '<span class="material-icons mr-1" style="font-size: 1rem;">add</span> Add another attachment',
                 deleteText: '',
-                formCssClass: 'inline-form' // CSS class applied to each form in a formset
+                formCssClass: 'inline-form'
             })
         });
     </script>

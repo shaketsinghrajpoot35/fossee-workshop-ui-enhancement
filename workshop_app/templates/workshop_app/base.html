@@ -1,18 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 {% load static %}
 {% load custom_filters %}
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="FOSSEE Workshop Booking — Book and manage Free and Open Source Software workshops at your institute, powered by IIT Bombay.">
+    <meta name="keywords" content="FOSSEE, workshops, IIT Bombay, open source, education, Python, Scilab">
+    <meta name="author" content="FOSSEE Group, IIT Bombay">
+    <meta name="theme-color" content="#4f46e5">
     <title>
         {% block title %}
-            HomePage
+            FOSSEE Workshop Booking
         {% endblock %}
     </title>
 
-    <!-- Google Fonts: Inter for readability and modern feel -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts: Inter for premium readability -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Core Scripts -->
     <script src="{% static 'workshop_app/js/jquery-3.4.1.min.js' %}"></script>
@@ -28,7 +36,7 @@
     <link rel="stylesheet" href="{% static 'workshop_app/css/toastr.min.css' %}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'workshop_app/css/base.css' %}" type="text/css"/>
-    <!-- Modern Design System Overrides -->
+    <!-- Modern Design System -->
     <link rel="stylesheet" href="{% static 'workshop_app/css/modern.css' %}" type="text/css"/>
     
     <link rel="stylesheet" href="{% static 'workshop_app/css/font-awesome.css' %}" type="text/css"/>
@@ -37,19 +45,28 @@
     {% block extra-custom-scripts %}
     {% endblock %}
 
+    <!-- React 18 (Production CDN) for UI enhancement components -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- FOSSEE React UI Components -->
+    <script src="{% static 'workshop_app/js/react-components.js' %}" defer></script>
+
 </head>
 
 <body>
+<!-- Accessibility: Skip Link -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
 {% block header %}
-    <nav class="navbar navbar-dark navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top" role="navigation" aria-label="Main navigation">
         <div class="container">
             {% if user.is_authenticated %}
-            <a class="navbar-brand text-white" href="{% url 'workshop_app:index' %}">
-                <span class="material-icons mr-1" style="vertical-align: middle">event_seat</span> FOSSEE Workshops
+            <a class="navbar-brand text-white" href="{% url 'workshop_app:index' %}" aria-label="FOSSEE Workshops Home">
+                <span class="material-icons" aria-hidden="true">school</span> FOSSEE Workshops
             </a>
             {% else %}
-            <a class="navbar-brand text-white" href="{{request.scheme}}://{{request.get_host}}">
-                <span class="material-icons mr-1" style="vertical-align: middle">event_seat</span> FOSSEE Workshops
+            <a class="navbar-brand text-white" href="{{request.scheme}}://{{request.get_host}}" aria-label="FOSSEE Workshops Home">
+                <span class="material-icons" aria-hidden="true">school</span> FOSSEE Workshops
             </a>
             {% endif %}
             
@@ -62,12 +79,14 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link text-white" href="/">
+                            <span class="material-icons mr-1" style="font-size: 1rem; vertical-align: text-bottom">home</span>
                             Home
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{% url 'statistics_app:public' %}">
-                            Workshop Statistics
+                            <span class="material-icons mr-1" style="font-size: 1rem; vertical-align: text-bottom">bar_chart</span>
+                            Statistics
                         </a>
                     </li>
                 </ul>
@@ -76,25 +95,29 @@
                     {% if request.user|has_group:"instructor" %}
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{% url 'statistics_app:team' %}">
-                            Team Statistics
+                            <span class="material-icons mr-1" style="font-size: 1rem; vertical-align: text-bottom">groups</span>
+                            Team Stats
                         </a>
                     </li>
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{% url 'workshop_app:workshop_status_instructor' %}">
-                            Workshop Status
+                            <span class="material-icons mr-1" style="font-size: 1rem; vertical-align: text-bottom">dashboard</span>
+                            Dashboard
                         </a>
                     </li>
                     {% if not request.user|has_group:"instructor" %}
                         <li class="nav-item">
                             <a class="nav-link text-white font-weight-bold" href="{% url 'workshop_app:propose_workshop' %}" style="color: #fbbf24 !important;">
+                                <span class="material-icons mr-1" style="font-size: 1rem; vertical-align: text-bottom">add_circle</span>
                                 Propose Workshop
                             </a>
                         </li>
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{% url 'workshop_app:workshop_type_list' %}">
-                            Workshop Types
+                            <span class="material-icons mr-1" style="font-size: 1rem; vertical-align: text-bottom">category</span>
+                            Types
                         </a>
                     </li>
                 </ul>
@@ -102,10 +125,10 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#" id="navbarDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           <span class="material-icons mr-1" style="vertical-align: middle">account_circle</span>
+                           <span class="material-icons mr-1" style="vertical-align: middle; font-size: 1.3rem">account_circle</span>
                            <span>{{user.get_full_name|title}}</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow-lg border-0" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item py-2" href="{% url 'workshop_app:view_own_profile' %}">
                                 <span class="material-icons align-middle mr-2" style="font-size: 1.2rem">person</span> Profile
                             </a>
@@ -122,7 +145,9 @@
                 {% else %}
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="btn btn-primary btn-sm ml-lg-3" href="{% url 'workshop_app:login' %}">Login</a>
+                        <a class="btn btn-primary btn-sm ml-lg-3" href="{% url 'workshop_app:login' %}">
+                            <span class="material-icons mr-1" style="font-size: 1rem">login</span> Sign In
+                        </a>
                     </li>
                 </ul>
                 {% endif %}
@@ -131,38 +156,57 @@
     </nav>
 {% endblock %}
 
-<div class="base-content">
+<div class="base-content" id="main-content" role="main">
     <div class="container">
         {% block content %}
             <div class="text-center py-5">
-                <h1 class="display-4 font-weight-bold">Base Template</h1>
-                <p class="lead text-muted">Please override this block in your templates.</p>
+                <h1 class="display-4 font-weight-bold gradient-text">FOSSEE Workshops</h1>
+                <p class="lead text-muted">Empowering education through Open Source Software.</p>
             </div>
         {% endblock %}
     </div>
 </div>
 
-<footer class="footer mt-auto py-4 bg-dark text-white">
+<footer class="footer mt-auto py-4" role="contentinfo">
     {% block footer %}
        <div class="container text-center">
-           <p class="mb-0">Designed & Developed with ❤️ by <strong>FOSSEE Group</strong>, IIT Bombay</p>
-           <small class="text-muted">Empowering education through Open Source</small>
+           <p class="mb-1">Designed & Developed with ❤️ by <strong>FOSSEE Group</strong>, IIT Bombay</p>
+           <small>Empowering education through Open Source · © {% now "Y" %} FOSSEE</small>
        </div> 
     {% endblock %}
 </footer>
 
 <script>
+    // Toastr notifications
     {% if messages %}
         {% for message in messages %}
             toastr[{% if message.tags %} "{{ message.tags }}" {% else %} "info" {% endif %}]("{{ message }}");
         {% endfor %}
     {% endif %}
+
+    // Navbar scroll effect
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > 50) {
+            $('.navbar').addClass('scrolled');
+        } else {
+            $('.navbar').removeClass('scrolled');
+        }
+    });
+
+    // Animate elements on scroll
+    $(document).ready(function() {
+        // Add smooth entrance to cards
+        $('.card, .auth-card, .activation-card').each(function(i) {
+            $(this).css({
+                'animation-delay': (i * 80) + 'ms'
+            });
+        });
+    });
 </script>
 
-<!-- Scripts that don't need to block rendering -->
+<!-- Deferred scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" defer></script>
 
 </body>
 </html>
-

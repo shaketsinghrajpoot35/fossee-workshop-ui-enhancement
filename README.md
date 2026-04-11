@@ -207,7 +207,7 @@ Django renders server-side HTML, while React manages interactivity.
 
 |                     Before                     |                       After                       |
 | :--------------------------------------------: | :-----------------------------------------------: |
-| ![Before](docs/screenshots/before/before_password.png) | ![Password](docs/screenshots/password_change.png) |
+| ![Before](docs/screenshots/password_change.png) | ![Password](docs/screenshots/password_change.png) |
 
 ---
 

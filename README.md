@@ -153,61 +153,61 @@ Django renders server-side HTML, while React manages interactivity.
 
 |                      Before                     |                 After                |
 | :---------------------------------------------: | :----------------------------------: |
-| ![Login Before](assets/images/login-before.png) | ![Login](docs/screenshots/login.png) |
+| ![Login Before](docs/screenshots/before/before_login.png) | ![Login](docs/screenshots/login.png) |
 
 ### 📝 Registration Page
 
 |                         Before                        |                    After                   |
 | :---------------------------------------------------: | :----------------------------------------: |
-| ![Register Before](assets/images/register-before.png) | ![Register](docs/screenshots/register.png) |
+| ![Register Before](docs/screenshots/before/before_register.png) | ![Register](docs/screenshots/register.png) |
 
 ### 🏠 Home Page
 
 |                     Before                     |                After               |
 | :--------------------------------------------: | :--------------------------------: |
-| ![Before](docs/screenshots/before-example.png) | ![Home](docs/screenshots/home.png) |
+| ![Before](docs/screenshots/before/before_home.png) | ![Home](docs/screenshots/home.png) |
 
 ### 🧩 Workshop Types
 
 |                   Before                  |                 After                |
 | :---------------------------------------: | :----------------------------------: |
-| ![Before](assets/images/types-before.png) | ![Types](docs/screenshots/types.png) |
+| ![Before](docs/screenshots/before/before_types.png) | ![Types](docs/screenshots/types.png) |
 
 ### 📄 Workshop Details
 
 |                     Before                     |                       After                       |
 | :--------------------------------------------: | :-----------------------------------------------: |
-| ![Before](docs/screenshots/before-example.png) | ![Details](docs/screenshots/workshop_details.png) |
+| ![Before](docs/screenshots/before/before_details.png) | ![Details](docs/screenshots/workshop_details.png) |
 
 ### 📊 Public Statistics
 
 |                     Before                     |                   After                   |
 | :--------------------------------------------: | :---------------------------------------: |
-| ![Before](docs/screenshots/before-example.png) | ![Stats](docs/screenshots/statistics.png) |
+| ![Before](docs/screenshots/before/before_statistics.png) | ![Stats](docs/screenshots/statistics.png) |
 
 ### 📋 Dashboard (Coordinator)
 
 |                     Before                     |                     After                    |
 | :--------------------------------------------: | :------------------------------------------: |
-| ![Before](docs/screenshots/before-example.png) | ![Dashboard](docs/screenshots/dashboard.png) |
+| ![Before](docs/screenshots/before/before_dashboard.png) | ![Dashboard](docs/screenshots/dashboard.png) |
 
 ### ➕ Propose Workshop
 
 |                     Before                     |                   After                  |
 | :--------------------------------------------: | :--------------------------------------: |
-| ![Before](docs/screenshots/before-example.png) | ![Propose](docs/screenshots/propose.png) |
+| ![Before](docs/screenshots/before/before_propose.png) | ![Propose](docs/screenshots/propose.png) |
 
 ### 👤 Profile Page
 
 |                     Before                     |                   After                  |
 | :--------------------------------------------: | :--------------------------------------: |
-| ![Before](docs/screenshots/before-example.png) | ![Profile](docs/screenshots/profile.png) |
+| ![Before](docs/screenshots/before/before_profile.png) | ![Profile](docs/screenshots/profile.png) |
 
 ### 🔑 Password Change
 
 |                     Before                     |                       After                       |
 | :--------------------------------------------: | :-----------------------------------------------: |
-| ![Before](docs/screenshots/before-example.png) | ![Password](docs/screenshots/password_change.png) |
+| ![Before](docs/screenshots/before/before_password.png) | ![Password](docs/screenshots/password_change.png) |
 
 ---
 

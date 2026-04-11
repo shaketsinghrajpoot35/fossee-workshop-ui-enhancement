@@ -150,43 +150,67 @@ Django renders server-side HTML, while React controls DOM.
 
 
 
-## Dashboard & App Screens
+## 📸 Live Application Visuals (Before & After)
 
 ### Home Page
-![Home Page](docs/screenshots/home.png)
+| Before (Legacy UI) | After (Modern UI) |
+| :---: | :---: |
+| ![Before Example](docs/screenshots/before-example.png) | ![Home Page](docs/screenshots/home.png) |
 
 ### Dashboard (Coordinator)
-![Dashboard](docs/screenshots/dashboard.png)
+| Before (Legacy UI) | After (Modern UI) |
+| :---: | :---: |
+| ![Before Example](docs/screenshots/before-example.png) | ![Dashboard](docs/screenshots/dashboard.png) |
 
 ### Propose Workshop
-![Propose Workshop](docs/screenshots/propose.png)
+| Before (Legacy UI) | After (Modern UI) |
+| :---: | :---: |
+| ![Before Example](docs/screenshots/before-example.png) | ![Propose Workshop](docs/screenshots/propose.png) |
 
 ### Login Page
-![Login Page](docs/screenshots/login.png)
+| Before (Legacy UI) | After (Modern UI) |
+| :---: | :---: |
+| ![Login Before](assets/images/login-before.png) | ![Login Page](docs/screenshots/login.png) |
 
 ### Registration Page
-![Registration Page](docs/screenshots/register.png)
+| Before (Legacy UI) | After (Modern UI) |
+| :---: | :---: |
+| ![Register Before](assets/images/register-before.png) | ![Registration Page](docs/screenshots/register.png) |
 
 ### Profile Page
-![Profile Page](docs/screenshots/profile.png)
+| Before (Legacy UI) | After (Modern UI) |
+| :---: | :---: |
+| ![Before Example](docs/screenshots/before-example.png) | ![Profile Page](docs/screenshots/profile.png) |
 
 ### Public Statistics
-![Statistics Page](docs/screenshots/statistics.png)
+| Before (Legacy UI) | After (Modern UI) |
+| :---: | :---: |
+| ![Before Example](docs/screenshots/before-example.png) | ![Statistics Page](docs/screenshots/statistics.png) |
 
 ### Workshop Types
-![Workshop Types](docs/screenshots/types.png)
+| Before (Legacy UI) | After (Modern UI) |
+| :---: | :---: |
+| ![Types Before](assets/images/types-before.png) | ![Workshop Types](docs/screenshots/types.png) |
 
 ### Workshop Details
-![Workshop Details](docs/screenshots/workshop_details.png)
+| Before (Legacy UI) | After (Modern UI) |
+| :---: | :---: |
+| ![Before Example](docs/screenshots/before-example.png) | ![Workshop Details](docs/screenshots/workshop_details.png) |
 
 ### Dashboard (Instructor)
-![Dashboard Instructor](docs/screenshots/dashboard_instructor.png)
+| Before (Legacy UI) | After (Modern UI) |
+| :---: | :---: |
+| ![Before Example](docs/screenshots/before-example.png) | ![Dashboard Instructor](docs/screenshots/dashboard_instructor.png) |
 
 ### Password Change
-![Password Change](docs/screenshots/password_change.png)
+| Before (Legacy UI) | After (Modern UI) |
+| :---: | :---: |
+| ![Before Example](docs/screenshots/before-example.png) | ![Password Change](docs/screenshots/password_change.png) |
 
 ### Activation Awaiting
-![Activation Awaiting](docs/screenshots/activation.png)
+| Before (Legacy UI) | After (Modern UI) |
+| :---: | :---: |
+| ![Before Example](docs/screenshots/before-example.png) | ![Activation Awaiting](docs/screenshots/activation.png) |
 
 ---
 

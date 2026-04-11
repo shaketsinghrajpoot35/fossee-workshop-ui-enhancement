@@ -147,24 +147,8 @@ Django renders server-side HTML, while React controls DOM.
 
 ---
 
-# 📸 Live Application Visuals
 
-## Before & After Comparisons
 
-### Login Page
-| Before (Legacy UI) | After (Modern UI) |
-| :---: | :---: |
-| ![Login Before](assets/images/login-before.png) | ![Login After](assets/images/login-after.png) |
-
-### Registration Page
-| Before (Legacy UI) | After (Modern UI) |
-| :---: | :---: |
-| ![Register Before](assets/images/register-before.png) | ![Register After](assets/images/register-after.png) |
-
-### Workshop Types
-| Before (Legacy UI) | After (Modern UI) |
-| :---: | :---: |
-| ![Types Before](assets/images/types-before.png) | ![Types After](assets/images/types-after.png) |
 
 ## Dashboard & App Screens
 
@@ -173,6 +157,12 @@ Django renders server-side HTML, while React controls DOM.
 
 ### Dashboard (Coordinator)
 ![Dashboard](docs/screenshots/dashboard.png)
+
+### Login Page
+![Login Page](docs/screenshots/login.png)
+
+### Registration Page
+![Registration Page](docs/screenshots/register.png)
 
 ### Profile Page
 ![Profile Page](docs/screenshots/profile.png)

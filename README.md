@@ -176,6 +176,18 @@ Django renders server-side HTML, while React controls DOM.
 ### Workshop Types
 ![Workshop Types](docs/screenshots/types.png)
 
+### Workshop Details
+![Workshop Details](docs/screenshots/workshop_details.png)
+
+### Dashboard (Instructor)
+![Dashboard Instructor](docs/screenshots/dashboard_instructor.png)
+
+### Password Change
+![Password Change](docs/screenshots/password_change.png)
+
+### Activation Awaiting
+![Activation Awaiting](docs/screenshots/activation.png)
+
 ---
 
 # 📊 Impact of Improvements

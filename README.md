@@ -165,7 +165,7 @@ Django renders server-side HTML, while React manages interactivity.
 
 |                     Before                     |                After               |
 | :--------------------------------------------: | :--------------------------------: |
-| ![Before](docs/screenshots/before/before_home.png) | ![Home](docs/screenshots/home.png) |
+| ![Before](docs/screenshots/before/before_home.png) | ![Home](docs/screenshots/dashboard.png) |
 
 ### 🧩 Workshop Types
 
@@ -177,7 +177,7 @@ Django renders server-side HTML, while React manages interactivity.
 
 |                     Before                     |                       After                       |
 | :--------------------------------------------: | :-----------------------------------------------: |
-| ![Before](docs/screenshots/before/before_details.png) | ![Details](docs/screenshots/workshop_details.png) |
+| ![Before](docs/screenshots/before/before_types.png) | ![Details](docs/screenshots/workshop_details.png) |
 
 ### 📊 Public Statistics
 
@@ -189,7 +189,7 @@ Django renders server-side HTML, while React manages interactivity.
 
 |                     Before                     |                     After                    |
 | :--------------------------------------------: | :------------------------------------------: |
-| ![Before](docs/screenshots/before/before_dashboard.png) | ![Dashboard](docs/screenshots/dashboard.png) |
+| ![Before](docs/screenshots/before/before_home.png) | ![Dashboard](docs/screenshots/dashboard.png) |
 
 ### ➕ Propose Workshop
 

@@ -4,7 +4,7 @@
 
 ---
 
-# 🎯 Project Objective
+# Project Objective
 
 The goal of this project was **not just to redesign UI**, but to:
 
@@ -15,7 +15,7 @@ The goal of this project was **not just to redesign UI**, but to:
 
 ---
 
-# 🧠 Problem Statement
+# Problem Statement
 
 The existing system had:
 
@@ -157,6 +157,9 @@ Django renders server-side HTML, while React controls DOM.
 
 ### Dashboard (Coordinator)
 ![Dashboard](docs/screenshots/dashboard.png)
+
+### Propose Workshop
+![Propose Workshop](docs/screenshots/propose.png)
 
 ### Login Page
 ![Login Page](docs/screenshots/login.png)

@@ -32,7 +32,7 @@ The existing system had several usability issues:
 
 A **layered, non-intrusive architecture** was used:
 
-```id="l0g3hb"
+```
 Django Templates (Structure - unchanged)
         ↓
 Modern CSS Design System (Visual Layer)
@@ -151,62 +151,62 @@ Django renders server-side HTML, while React manages interactivity.
 
 ### 🔐 Login Page
 
-|                      Before                     |                 After                |
-| :---------------------------------------------: | :----------------------------------: |
+|                           Before                          |                 After                |
+| :-------------------------------------------------------: | :----------------------------------: |
 | ![Login Before](docs/screenshots/before/before_login.png) | ![Login](docs/screenshots/login.png) |
 
 ### 📝 Registration Page
 
-|                         Before                        |                    After                   |
-| :---------------------------------------------------: | :----------------------------------------: |
+|                              Before                             |                    After                   |
+| :-------------------------------------------------------------: | :----------------------------------------: |
 | ![Register Before](docs/screenshots/before/before_register.png) | ![Register](docs/screenshots/register.png) |
 
 ### 🏠 Home Page
 
-|                     Before                     |                After               |
-| :--------------------------------------------: | :--------------------------------: |
+|                       Before                       |                  After                  |
+| :------------------------------------------------: | :-------------------------------------: |
 | ![Before](docs/screenshots/before/before_home.png) | ![Home](docs/screenshots/dashboard.png) |
 
 ### 🧩 Workshop Types
 
-|                   Before                  |                 After                |
-| :---------------------------------------: | :----------------------------------: |
+|                        Before                       |                 After                |
+| :-------------------------------------------------: | :----------------------------------: |
 | ![Before](docs/screenshots/before/before_types.png) | ![Types](docs/screenshots/types.png) |
 
 ### 📄 Workshop Details
 
-|                     Before                     |                       After                       |
-| :--------------------------------------------: | :-----------------------------------------------: |
+|                        Before                       |                       After                       |
+| :-------------------------------------------------: | :-----------------------------------------------: |
 | ![Before](docs/screenshots/before/before_types.png) | ![Details](docs/screenshots/workshop_details.png) |
 
 ### 📊 Public Statistics
 
-|                     Before                     |                   After                   |
-| :--------------------------------------------: | :---------------------------------------: |
+|                          Before                          |                   After                   |
+| :------------------------------------------------------: | :---------------------------------------: |
 | ![Before](docs/screenshots/before/before_statistics.png) | ![Stats](docs/screenshots/statistics.png) |
 
 ### 📋 Dashboard (Coordinator)
 
-|                     Before                     |                     After                    |
-| :--------------------------------------------: | :------------------------------------------: |
+|                       Before                       |                     After                    |
+| :------------------------------------------------: | :------------------------------------------: |
 | ![Before](docs/screenshots/before/before_home.png) | ![Dashboard](docs/screenshots/dashboard.png) |
 
 ### ➕ Propose Workshop
 
-|                     Before                     |                   After                  |
-| :--------------------------------------------: | :--------------------------------------: |
+|                         Before                        |                   After                  |
+| :---------------------------------------------------: | :--------------------------------------: |
 | ![Before](docs/screenshots/before/before_propose.png) | ![Propose](docs/screenshots/propose.png) |
 
 ### 👤 Profile Page
 
-|                     Before                     |                   After                  |
-| :--------------------------------------------: | :--------------------------------------: |
+|                         Before                        |                   After                  |
+| :---------------------------------------------------: | :--------------------------------------: |
 | ![Before](docs/screenshots/before/before_profile.png) | ![Profile](docs/screenshots/profile.png) |
 
 ### 🔑 Password Change
 
-|                     Before                     |                       After                       |
-| :--------------------------------------------: | :-----------------------------------------------: |
+|                      Before                     |                       After                       |
+| :---------------------------------------------: | :-----------------------------------------------: |
 | ![Before](docs/screenshots/password_change.png) | ![Password](docs/screenshots/password_change.png) |
 
 ---
@@ -219,6 +219,23 @@ Django renders server-side HTML, while React manages interactivity.
 | UI clarity       | Low     | High      |
 | Interactivity    | Minimal | Improved  |
 | Accessibility    | Limited | Better    |
+
+---
+
+## ⚙️ Setup Instructions
+
+Follow these steps to run the project locally:
+
+```bash
+git clone https://github.com/your-username/fossee-workshop-ui-enhancement.git
+cd fossee-workshop-ui-enhancement
+pip install -r requirements.txt
+python manage.py runserver
+```
+
+Open your browser and go to:
+
+http://127.0.0.1:8000
 
 ---
 

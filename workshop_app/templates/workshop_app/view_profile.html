@@ -93,7 +93,7 @@
         {% else %}
             <!-- Editing own profile -->
             <div class="row justify-content-center">
-                <div class="col-md-7">
+                <div class="col-md-8">
                     <div class="profile-card card animate-in">
                         <!-- Profile Header -->
                         <div class="profile-header">
@@ -103,8 +103,21 @@
                             <div class="profile-info">
                                 <h3>Edit Your Profile</h3>
                                 <p>Update your personal and institutional details below.</p>
+                                <span class="badge badge-primary mt-1">{{ profile.position|title }}</span>
                             </div>
                         </div>
+
+                        <!-- Messages -->
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} animate-in mx-3 mt-3" role="alert">
+                                    <span class="material-icons mr-2" style="font-size:1.1rem;vertical-align:middle">
+                                        {% if message.tags == 'success' %}check_circle{% else %}error_outline{% endif %}
+                                    </span>
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
 
                         <!-- Edit Form -->
                         <div class="profile-details">
@@ -116,7 +129,7 @@
                                         {% for error in field.errors %}
                                             <div class="alert alert-danger animate-in" role="alert">
                                                 <span class="material-icons mr-2" style="font-size: 1.1rem">error_outline</span>
-                                                <strong>{{field.label}}: {{ error|escape }}</strong>
+                                                <strong>{{ field.label }}: {{ error|escape }}</strong>
                                             </div>
                                         {% endfor %}
                                     {% endfor %}
@@ -128,20 +141,99 @@
                                     {% endfor %}
                                 {% endif %}
 
-                                {% for field in form %}
-                                    <div class="form-group mb-3">
-                                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                        {{ field }}
-                                        {% if field.help_text %}
-                                            <small class="form-text text-muted">{{ field.help_text }}</small>
-                                        {% endif %}
-                                        {% if field.errors %}
-                                            <div class="text-danger small mt-1">{{ field.errors.0 }}</div>
-                                        {% endif %}
+                                <div class="row">
+                                    <!-- First Name -->
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="{{ form.first_name.id_for_label }}">
+                                                <span class="material-icons" style="font-size:1rem;vertical-align:middle">person</span>
+                                                First Name
+                                            </label>
+                                            {{ form.first_name }}
+                                            {% if form.first_name.errors %}<div class="text-danger small mt-1">{{ form.first_name.errors.0 }}</div>{% endif %}
+                                        </div>
                                     </div>
-                                {% endfor %}
+                                    <!-- Last Name -->
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="{{ form.last_name.id_for_label }}">
+                                                <span class="material-icons" style="font-size:1rem;vertical-align:middle">person</span>
+                                                Last Name
+                                            </label>
+                                            {{ form.last_name }}
+                                            {% if form.last_name.errors %}<div class="text-danger small mt-1">{{ form.last_name.errors.0 }}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                </div>
 
-                                <div class="d-flex gap-2 mt-4" style="gap: 0.75rem;">
+                                <div class="row">
+                                    <!-- Title -->
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <label for="{{ form.title.id_for_label }}">Title</label>
+                                            {{ form.title }}
+                                            {% if form.title.errors %}<div class="text-danger small mt-1">{{ form.title.errors.0 }}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <!-- Phone -->
+                                    <div class="col-md-8">
+                                        <div class="form-group mb-3">
+                                            <label for="{{ form.phone_number.id_for_label }}">
+                                                <span class="material-icons" style="font-size:1rem;vertical-align:middle">phone</span>
+                                                Phone Number
+                                            </label>
+                                            {{ form.phone_number }}
+                                            {% if form.phone_number.errors %}<div class="text-danger small mt-1">{{ form.phone_number.errors.0 }}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Institute -->
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.institute.id_for_label }}">
+                                        <span class="material-icons" style="font-size:1rem;vertical-align:middle">account_balance</span>
+                                        Institute / Organization
+                                    </label>
+                                    {{ form.institute }}
+                                    {% if form.institute.errors %}<div class="text-danger small mt-1">{{ form.institute.errors.0 }}</div>{% endif %}
+                                </div>
+
+                                <!-- Department -->
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.department.id_for_label }}">
+                                        <span class="material-icons" style="font-size:1rem;vertical-align:middle">school</span>
+                                        Department
+                                    </label>
+                                    {{ form.department }}
+                                    {% if form.department.errors %}<div class="text-danger small mt-1">{{ form.department.errors.0 }}</div>{% endif %}
+                                </div>
+
+                                <div class="row">
+                                    <!-- Location -->
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="{{ form.location.id_for_label }}">
+                                                <span class="material-icons" style="font-size:1rem;vertical-align:middle">place</span>
+                                                City / Location
+                                            </label>
+                                            {{ form.location }}
+                                            {% if form.location.errors %}<div class="text-danger small mt-1">{{ form.location.errors.0 }}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                    <!-- State -->
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="{{ form.state.id_for_label }}">
+                                                <span class="material-icons" style="font-size:1rem;vertical-align:middle">map</span>
+                                                State
+                                            </label>
+                                            {{ form.state }}
+                                            {% if form.state.errors %}<div class="text-danger small mt-1">{{ form.state.errors.0 }}</div>{% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex mt-4" style="gap: 0.75rem;">
                                     <button class="btn btn-primary flex-grow-1" type="submit">
                                         <span class="material-icons mr-2" style="font-size: 1.1rem">save</span> Save Changes
                                     </button>
@@ -155,3 +247,4 @@
         {% endif %}
     </div>
 {% endblock %}
+

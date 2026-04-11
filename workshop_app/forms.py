@@ -45,7 +45,20 @@ class UserRegistrationForm(forms.Form):
     state = forms.ChoiceField(choices=states)
     how_did_you_hear_about_us = forms.ChoiceField(choices=source)
 
+    def __init__(self, *args, **kwargs):
+        super(UserRegistrationForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            if isinstance(field.widget, forms.Select):
+                field.widget.attrs['class'] = 'form-control'
+            elif isinstance(field.widget, (forms.PasswordInput, forms.TextInput,
+                                           forms.EmailInput, forms.NumberInput,
+                                           forms.RegexInput if hasattr(forms, 'RegexInput') else forms.TextInput)):
+                field.widget.attrs['class'] = 'form-control'
+            else:
+                field.widget.attrs['class'] = 'form-control'
+
     def clean_username(self):
+
         u_name = self.cleaned_data["username"]
         if u_name.strip(UNAME_CHARS):
             msg = "Only letters, digits, period  are" \
@@ -205,43 +218,33 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         exclude = ["user", "is_email_verified", "activation_key",
-                   "key_expiry_time", "how_did_you_hear_about_us"]
+                   "key_expiry_time", "how_did_you_hear_about_us",
+                   "position"]
+        widgets = {
+            'title': forms.Select(attrs={'class': 'form-control'}),
+            'department': forms.Select(attrs={'class': 'form-control'}),
+            'state': forms.Select(attrs={'class': 'form-control'}),
+            'institute': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Institute'}),
+            'phone_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone Number (10 digits)'}),
+            'location': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'City/Place'}),
+        }
 
-    first_name = forms.CharField(max_length=30, widget=forms.TextInput(
-                    {'class': "form-control", 'placeholder': "First Name"}))
-    last_name = forms.CharField(max_length=30, widget=forms.TextInput(
-                    {'class': "form-control", 'placeholder': "Last Name"}))
+    first_name = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'})
+    )
+    last_name = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'})
+    )
 
     def __init__(self, *args, **kwargs):
-        if 'user' in kwargs:
-            user = kwargs.pop('user')
+        user = kwargs.pop('user', None)
         super(ProfileForm, self).__init__(*args, **kwargs)
-        self.fields['first_name'].initial = user.first_name
-        self.fields['first_name'].widget.attrs.update(
-            {'class': "form-control", 'placeholder': 'First Name'}
-        )
-        self.fields['last_name'].initial = user.last_name
-        self.fields['last_name'].widget.attrs.update(
-            {'class': "form-control", 'placeholder': 'Last Name'}
-        )
-        self.fields['institute'].widget.attrs.update(
-            {'class': "form-control", 'placeholder': 'Institute'}
-        )
-        self.fields['department'].widget.attrs.update(
-            {'class': "custom-select"}
-        )
-        self.fields['title'].widget.attrs.update(
-            {'class': "custom-select"}
-        )
-        self.fields['state'].widget.attrs.update(
-            {'class': "custom-select"}
-        )
-        self.fields['phone_number'].widget.attrs.update(
-            {'class': "form-control", 'placeholder': 'Phone Number'}
-        )
-        self.fields['position'].widget.attrs.update(
-            {'class': "form-control", 'placeholder': 'Position'}
-        )
-        self.fields['location'].widget.attrs.update(
-            {'class': "form-control", 'placeholder': 'Location'}
-        )
+        if user:
+            self.fields['first_name'].initial = user.first_name
+            self.fields['last_name'].initial = user.last_name
+        # Ensure field order: personal info first, then institutional
+        field_order = ['first_name', 'last_name', 'title', 'phone_number',
+                       'institute', 'department', 'location', 'state']
+        self.order_fields(field_order)

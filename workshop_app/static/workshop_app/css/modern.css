@@ -455,6 +455,7 @@ a:hover {
 /* ==========================================
    7. FORMS — Modern Input Styling
    ========================================== */
+/* Base shared styles for all form controls */
 .form-control,
 .custom-select {
     border: 1.5px solid var(--slate-200);
@@ -465,8 +466,28 @@ a:hover {
     background-color: var(--slate-50);
     color: var(--slate-800);
     transition: all var(--transition-fast);
+    width: 100%;
+    display: block;
+}
+
+/* Only strip appearance from text inputs & textareas — NOT selects */
+input.form-control,
+textarea.form-control {
     -webkit-appearance: none;
     appearance: none;
+}
+
+/* Select dropdowns: keep native arrow + add a custom chevron */
+select.form-control,
+.custom-select {
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.85rem center;
+    background-size: 1rem;
+    padding-right: 2.5rem;
+    cursor: pointer;
 }
 
 .form-control:hover,
@@ -482,12 +503,17 @@ a:hover {
     outline: none;
 }
 
+select.form-control:focus,
+.custom-select:focus {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234f46e5' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
 .form-control::placeholder {
     color: var(--slate-400);
     font-weight: 400;
 }
 
-/* Floating Labels Enhancement */
+/* Form Labels */
 .form-group label,
 .form-group .control-label {
     font-size: var(--font-size-xs);
@@ -496,7 +522,9 @@ a:hover {
     letter-spacing: 0.06em;
     color: var(--slate-500);
     margin-bottom: 0.4rem;
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
 }
 
 /* Textarea */
@@ -1235,13 +1263,12 @@ textarea.form-control {
     color: var(--slate-500);
     vertical-align: top;
     padding-top: 0.85rem;
-    white-space: nowrap;
+    white-space: normal;
+    width: 160px;
 }
 
-.register-card table.table input,
-.register-card table.table select {
+.register-card table.table input {
     width: 100%;
-    min-width: 250px;
     border: 1.5px solid var(--slate-200);
     border-radius: var(--radius);
     padding: 0.6rem 1rem;
@@ -1249,8 +1276,30 @@ textarea.form-control {
     font-family: var(--font-family);
     background-color: var(--slate-50);
     transition: all var(--transition-fast);
-    appearance: none;
     -webkit-appearance: none;
+    appearance: none;
+}
+
+.register-card table.table select {
+    width: 100%;
+    border: 1.5px solid var(--slate-200);
+    border-radius: var(--radius);
+    padding: 0.6rem 2.5rem 0.6rem 1rem;
+    font-size: var(--font-size-sm);
+    font-family: var(--font-family);
+    background-color: var(--slate-50);
+    transition: all var(--transition-fast);
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.85rem center;
+    background-size: 1rem;
+    cursor: pointer;
+    /* Ensure full text is visible */
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .register-card table.table input:focus,
@@ -1259,6 +1308,10 @@ textarea.form-control {
     border-color: var(--primary);
     box-shadow: 0 0 0 3px var(--primary-glow);
     outline: none;
+}
+
+.register-card table.table select:focus {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234f46e5' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 }
 
 /* ==========================================

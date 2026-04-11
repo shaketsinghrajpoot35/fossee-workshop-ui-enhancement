@@ -5,72 +5,139 @@
 {% endblock %}
 
 {% block content %}
-<div class="register-wrapper animate-in">
-    <div class="register-card">
-        <!-- Header -->
-        <div class="register-header">
-            <div class="auth-icon" style="width: 56px; height: 56px; background: linear-gradient(135deg, #4f46e5, #7c3aed); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);">
-                <span class="material-icons" style="font-size: 1.75rem; color: white;">person_add</span>
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+        <div class="register-card mb-5 animate-in">
+            <!-- Header -->
+            <div class="register-header">
+                <div class="auth-icon" style="width: 56px; height: 56px; background: linear-gradient(135deg, #4f46e5, #7c3aed); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);">
+                    <span class="material-icons" style="font-size: 1.75rem; color: white;">person_add</span>
+                </div>
+                <h2>Coordinator Registration</h2>
+                <p>Join the FOSSEE workshop network and bring open-source learning to your institute.</p>
             </div>
-            <h2>Coordinator Registration</h2>
-            <p>Join the FOSSEE workshop network and bring open-source learning to your institute.</p>
-        </div>
 
-        <!-- Form Body -->
-        <div style="padding: 1.5rem 1.75rem 1.75rem;">
-            <form action="" method="post" id="register-form" novalidate>
-                {% csrf_token %}
+            <!-- Form Body -->
+            <div style="padding: 2rem;">
+                <form action="" method="post" id="register-form" novalidate>
+                    {% csrf_token %}
 
-                <!-- Error Display -->
-                {% if form.errors %}
-                    <div class="alert alert-danger mb-4 animate-in" role="alert">
-                        <span class="material-icons mr-2" style="font-size: 1.2rem; flex-shrink: 0;">error_outline</span>
-                        <div>
-                            <strong>Please correct the errors below:</strong>
-                            <ul class="mb-0 mt-1 pl-3" style="font-size: 0.8rem;">
-                                {% for field in form %}
-                                    {% for error in field.errors %}
-                                        <li><strong>{{ field.label }}</strong>: {{ error|escape }}</li>
+                    <!-- Error Display -->
+                    {% if form.errors %}
+                        <div class="alert alert-danger mb-4 animate-in" role="alert">
+                            <span class="material-icons mr-2" style="font-size: 1.2rem; flex-shrink: 0;">error_outline</span>
+                            <div>
+                                <strong>Please correct the errors below:</strong>
+                                <ul class="mb-0 mt-1 pl-3" style="font-size: 0.8rem;">
+                                    {% for field in form %}
+                                        {% for error in field.errors %}
+                                            <li><strong>{{ field.label }}</strong>: {{ error|escape }}</li>
+                                        {% endfor %}
                                     {% endfor %}
-                                {% endfor %}
-                                {% for error in form.non_field_errors %}
-                                    <li>{{ error|escape }}</li>
-                                {% endfor %}
-                            </ul>
+                                    {% for error in form.non_field_errors %}
+                                        <li>{{ error|escape }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <!-- Section: Account Overview -->
+                    <h5 class="mb-3 font-weight-bold" style="color: var(--primary);">
+                        <span class="material-icons" style="font-size: 1.2rem; vertical-align: bottom;">lock</span> Account Details
+                    </h5>
+                    <div class="row mb-4">
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                            {{ form.username }}
+                            {% if form.username.help_text %}<small class="form-text mt-1">{{ form.username.help_text }}</small>{% endif %}
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                            {{ form.email }}
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                            {{ form.password }}
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="{{ form.confirm_password.id_for_label }}">{{ form.confirm_password.label }}</label>
+                            {{ form.confirm_password }}
                         </div>
                     </div>
-                {% endif %}
 
-                <!-- Progress Steps Visual -->
-                <div class="d-flex justify-content-between mb-4 px-2" style="gap: 4px;">
-                    <div class="text-center flex-fill">
-                        <div style="height: 3px; background: linear-gradient(135deg, #4f46e5, #7c3aed); border-radius: 3px;"></div>
-                        <small class="text-muted font-weight-bold" style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em;">Account</small>
+                    <!-- Section: Personal Information -->
+                    <h5 class="mb-3 font-weight-bold" style="color: var(--primary); border-top: 1px solid var(--slate-100); padding-top: 1rem;">
+                        <span class="material-icons" style="font-size: 1.2rem; vertical-align: bottom;">person</span> Personal Information
+                    </h5>
+                    <div class="row mb-4">
+                        <div class="col-md-2 form-group mb-3">
+                            <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+                            {{ form.title }}
+                        </div>
+                        <div class="col-md-5 form-group mb-3">
+                            <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                            {{ form.first_name }}
+                        </div>
+                        <div class="col-md-5 form-group mb-3">
+                            <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                            {{ form.last_name }}
+                        </div>
+                        <div class="col-md-12 form-group mb-3">
+                            <label for="{{ form.phone_number.id_for_label }}">
+                                <span class="material-icons" style="font-size: 1rem; vertical-align: middle;">phone</span> Phone Number
+                            </label>
+                            {{ form.phone_number }}
+                            {% if form.phone_number.help_text %}<small class="form-text mt-1">{{ form.phone_number.help_text }}</small>{% endif %}
+                        </div>
                     </div>
-                    <div class="text-center flex-fill">
-                        <div style="height: 3px; background: linear-gradient(135deg, #818cf8, #a78bfa); border-radius: 3px;"></div>
-                        <small class="text-muted font-weight-bold" style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em;">Personal</small>
+
+                    <!-- Section: Institutional Details -->
+                    <h5 class="mb-3 font-weight-bold" style="color: var(--primary); border-top: 1px solid var(--slate-100); padding-top: 1rem;">
+                        <span class="material-icons" style="font-size: 1.2rem; vertical-align: bottom;">account_balance</span> Institutional Details
+                    </h5>
+                    <div class="row mb-4">
+                        <div class="col-md-12 form-group mb-3">
+                            <label for="{{ form.institute.id_for_label }}">{{ form.institute.label }}</label>
+                            {{ form.institute }}
+                            {% if form.institute.help_text %}<small class="form-text mt-1">{{ form.institute.help_text }}</small>{% endif %}
+                        </div>
+                        <div class="col-md-12 form-group mb-3">
+                            <label for="{{ form.department.id_for_label }}">{{ form.department.label }}</label>
+                            {{ form.department }}
+                            {% if form.department.help_text %}<small class="form-text mt-1">{{ form.department.help_text }}</small>{% endif %}
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="{{ form.location.id_for_label }}">
+                                <span class="material-icons" style="font-size: 1rem; vertical-align: middle;">place</span> City/Location
+                            </label>
+                            {{ form.location }}
+                            {% if form.location.help_text %}<small class="form-text mt-1">{{ form.location.help_text }}</small>{% endif %}
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="{{ form.state.id_for_label }}">
+                                <span class="material-icons" style="font-size: 1rem; vertical-align: middle;">map</span> State
+                            </label>
+                            {{ form.state }}
+                        </div>
                     </div>
-                    <div class="text-center flex-fill">
-                        <div style="height: 3px; background: linear-gradient(135deg, #c7d2fe, #ddd6fe); border-radius: 3px;"></div>
-                        <small class="text-muted font-weight-bold" style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em;">Institute</small>
+
+                    <div class="form-group mb-4">
+                        <label for="{{ form.how_did_you_hear_about_us.id_for_label }}">{{ form.how_did_you_hear_about_us.label }}</label>
+                        {{ form.how_did_you_hear_about_us }}
                     </div>
+
+                    <button class="btn btn-primary btn-lg btn-block mt-4" type="submit" id="register-submit">
+                        <span class="material-icons mr-2">how_to_reg</span> Create Account
+                    </button>
+                </form>
+
+                <div class="text-center mt-4 pt-3" style="border-top: 1px solid #e2e8f0;">
+                    <a href="{% url 'workshop_app:login' %}" style="font-weight: 600; font-size: 0.875rem; color: #4f46e5;">
+                        <span class="material-icons mr-1" style="font-size: 1rem; vertical-align: text-bottom;">login</span>
+                        Already registered? Sign in
+                    </a>
                 </div>
-
-                <table class="table table-bordered">
-                    {{ form.as_table }}
-                </table>
-
-                <button class="btn btn-primary btn-lg btn-block mt-3" type="submit" id="register-submit">
-                    <span class="material-icons mr-2">how_to_reg</span> Create Account
-                </button>
-            </form>
-
-            <div class="text-center mt-4 pt-3" style="border-top: 1px solid #e2e8f0;">
-                <a href="{% url 'workshop_app:login' %}" style="font-weight: 600; font-size: 0.875rem; color: #4f46e5;">
-                    <span class="material-icons mr-1" style="font-size: 1rem; vertical-align: text-bottom;">login</span>
-                    Already registered? Sign in
-                </a>
             </div>
         </div>
     </div>

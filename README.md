@@ -147,22 +147,38 @@ Django renders server-side HTML, while React controls DOM.
 
 ---
 
-# 📸 Before & After Screenshots
+# 📸 Live Application Visuals
+
+## Before & After Comparisons
 
 ### Login Page
-| Before | After |
-|:---:|:---:|
-| <img src="assets/images/login-before.png" width="400"> | <img src="assets/images/login-after.png" width="400"> |
+| Before (Legacy UI) | After (Modern UI) |
+| :---: | :---: |
+| ![Login Before](assets/images/login-before.png) | ![Login After](assets/images/login-after.png) |
 
 ### Registration Page
-| Before | After |
-|:---:|:---:|
-| <img src="assets/images/register-before.png" width="400"> | <img src="assets/images/register-after.png" width="400"> |
+| Before (Legacy UI) | After (Modern UI) |
+| :---: | :---: |
+| ![Register Before](assets/images/register-before.png) | ![Register After](assets/images/register-after.png) |
 
 ### Workshop Types
-| Before | After |
-|:---:|:---:|
-| <img src="assets/images/types-before.png" width="400"> | <img src="assets/images/types-after.png" width="400"> |
+| Before (Legacy UI) | After (Modern UI) |
+| :---: | :---: |
+| ![Types Before](assets/images/types-before.png) | ![Types After](assets/images/types-after.png) |
+
+## Dashboard & App Screens
+
+### Home Page
+![Home Page](docs/screenshots/home.png)
+
+### Dashboard (Coordinator)
+![Dashboard](docs/screenshots/dashboard.png)
+
+### Profile Page
+![Profile Page](docs/screenshots/profile.png)
+
+### Public Statistics
+![Statistics Page](docs/screenshots/statistics.png)
 
 ---
 
